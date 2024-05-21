@@ -53,6 +53,18 @@ You Only Look Once”是一种使用卷积神经网络进行目标检测的算�
 
 ![yolo](/img/yolo-intro.png)
 
+>关于yolo模型不同代号的含义：
+>
+>1. s：这是yolo系列中最小的模型。“s” 代表 “small”（小）。该模型在计算资源有限的设备上表现最佳，如移动设备或边缘设备。 yolov5s的检测速度最快，但准确度相对较低。
+>
+>2. m：这是 YOLOv5 系列中一个中等大小的模型。“m” 代表 “medium”（中）。YOLOv5m 在速度和准确度之间提供了较好的平衡，适用于具有一定计算能力的设备。
+>
+>3. l：这是 YOLOv5 系列中一个较大的模型。“l” 代表 “large”（大）。YOLOv5l 的准确度相对较高，但检测速度较慢。适用于需要较高准确度，且具有较强计算能力的设备。
+>
+>4. x：这是 YOLOv5 系列中最大的模型。“x” 代表 “extra large”（超大）。YOLOv5x 在准确度方面表现最好，但检测速度最慢。适用于需要极高准确度的任务，且具有强大计算能力（如 GPU）的设备。
+>
+>5. n:：这是 YOLOv5 系列中的一个变体，专为  设nano（如 NVIDIA Jetson Nano）进行优化。YOLOv5n 在保持较快速度的同时，提供适用于边缘设备的准确度。
+
 ## onnx
 
 ONNX即开放神经网络交换（Open Neural Network Exchange）是微软和Facebook提出用来表示深度学习模型的开放格式。所谓开放就是ONNX定义了一组和环境，平台均无关的标准格式，来增强各种AI模型的可交互性。
@@ -95,6 +107,21 @@ ncnn 是由腾讯开源的为手机端极致优化的高性能神经网络前向
 
 ![onnx](/img/ncnn-platform.png)
 
+## pyqt
+
+PyQt是Qt框架的Python语言实现，由Riverbank Computing开发，是最强大的GUI库之一。PyQt提供了一个设计良好的窗口控件集合，每一个PyQt控件都对应一个Qt控件，因此PyQt的API接口与Qt的API接口很接近，但PyQt不再使用QMake系统和Q_OBJECT宏
+
+>PyQt5特性如下：
+>
+>1. 基于高性能的Qt的GUI控件集。
+>
+>2. 能够跨平台运行在Linux、Window和Mac OS系统上。
+>
+>3. 可以使用成熟的IDE进行界面设计，并自动生成可执行的Python代码。
+>
+>4. 提供一整套种类齐全的窗口控件。
+
+![pyqt](/img/pyqt.png)
 
 
 # ~~数据集~~
@@ -119,7 +146,60 @@ ncnn 是由腾讯开源的为手机端极致优化的高性能神经网络前向
 
 # 模型迁移
 
-目前模型已经成功迁移到
+目前模型已经成功迁移到安卓作为移动端，完成此项研究的目的在于，考虑到现场大多使用固定式摄像头，或者安眼等笨重的设备，受限于供电设备的限制是一定存在视野盲区的，而解决视野盲区的问题，无非是增加新的监控设备，依旧是成本问题，那么是否存在廉价且可行的解决方案呢？
+
+正是基于这样的想法，将模型向移动端部署则旨在解决这一问题，相较于固定式摄像头需要破土添线，或者安眼摄像头需要额外租凭，防爆手机（或者其他被信任的安卓系统设备均可）无论是先期成本还是更换维护的成本相较而言都显得廉价的多。
+
+此外，相较于上述监控设备的笨重，采取移动设备进行监控则更是解放了被硬件限制的监控角度，完成真正的无死角监控，加之通讯模块可以实现远程传输，也是对网线成本问题的解决，做到随用随传，无死角监控
+
+# 解决问题
+
+目前主要通过yolo和pyqt完成了PC端部署，借助onnx和ncnn在Android studio完成了移动端部署。
+
+在笔者实现该项目前，现有的高后果区识别项目主要用于实现人的识别，主要功能为：
+
+>劳保穿戴、明烟明火、外来入侵、接打电话、吸烟、人员异常倒地、进出站人数统计、单/双人巡检、吊装作业安全监测、高处作业安全带佩戴、动火作业、监测、人脸识别等。
+
+基于对以往项目的了解，该模型的主要使用了yolov3模型进行识别，所以在此基础上和技术提升和进步以及版本兼容等问题的综合考量上，我并没有选择使用最新的yolov8，而是选择了yolov5
+
+>为什么选择yolov5？
+>
+>如果要回答这个问题，我们需要从性能和大小两方面来看
+>
+>1. 性能：在性能这一模块则不得不提到yolov4，这也是yolov5的上一代，相较于yolov3的集大成者，采用了CSPDarknet53+SPP+PAN+YOLOv3的框架，通过堆料的方式，增加了Weighted-Residual-Connections (WRC)、Cross-Stage-Partial-connections (CSP)
+、Cross mini-Batch Normalization (CmBN)、Self-adversarial-training (SAT)、Mish-activation、Mosaic、data augmentation、CmBN、DropBlock regularization、CIoU loss技术实现了一种高效而强的目标检测模型,这些技巧主要应用于下面这些方面：
+>
+>        用于backbone的BoF：CutMix和Mosaic数据增强，DropBlock正则化，Class label smoothing
+>
+>        用于backbone的BoS：Mish激活函数，CSP，MiWRC
+>
+>        用于检测器的BoF：CIoU-loss，CmBN，DropBlock正则化，Mosaic数据增强，Self-Adversarial 训练，消除网格敏感性，对单个ground-truth使用多个anchor，Cosine annealing scheduler，最佳超参数，Random training shapes
+>
+>        用于检测器的Bos：Mish激活函数，SPP，SAM，PAN，DIoU-NMS
+>       此外作者还通过在输入网络分辨率，卷积层数，参数数量和层输出（filters）的数量之间找到最佳平衡，而这努力最终实现了yolov4在性能上的飞跃，而继承了这一框架的yolov5也是其完美性能的体现，在论文[YOLOv4: Optimal Speed and Accuracy of Object Detection](https://arxiv.org/abs/2004.10934)中大量的实验充分的证明了这一点
+>
+>![yolov4](/img/yolov4.png)
+>
+>![yolov4](/img/yolov4-coco.png)
+>
+>2. 大小：在yolov5命名之初，大家对其有着非常大的争议，因为因为YOLOV5相对于YOLOV4来说创新性的地方很少，相较于yolov4和yolov3那样的大踏步式的变革，yolov5的框架则几乎没有改变，也正是基于这样的缘由yolov5的开发者们并没有将yolov4进行性能比较
+>
+>     但是不同于性能的一成不变，在yolov5的模型轻量化上则有着长足的进步，以使用darknet框架的yolo模型举例，yolov4有2444mb而yolov5则只有27mb，足足减少了90%，而这一切都是在不损失准确度指标的情况下实现的。
+>
+>因此总结起来便是选择yolov5的原因，它拥有着作为集大成者的yolov4的模型性能和准确度，也有着轻量级及的模型大小，快速的推断速度和与yolov3的优秀兼容。
+
+而除了对模型的更新还在
+
+
+# 项目架构
+移动端项目架构：
+
+![Android](/img/yolo-pc.png)
+
+PC端项目架构：
+
+![PC](/img/yolo-android.png)
+
 
 # 使用Yolov5实现的detection效果图展示
 
