@@ -196,13 +196,13 @@ PyQt是Qt框架的Python语言实现，由Riverbank Computing开发，是最强�
 
 移动端项目程序框图：
 
-第一版（用户注册+图片识别+拍照识别）：
+第一版（用户登录+注册+图片识别+拍照识别）：
 
 ![Android](/img/andorid-flowchart.png)
 
 第二版（视频实时识别+区域闯入）
 
-![Android](/img/)
+![Android](/img/andorid-flowchart2.png)
 
 PC端项目架构：
 
@@ -212,7 +212,7 @@ PC端项目架构：
 # 项目架构
 移动端项目架构：
 
-第一版（用户注册+图片识别+拍照识别）：
+第一版（用户登录+注册+图片识别+拍照识别）：
 
 ![Android](/img/yolo-android.png)
 
@@ -225,7 +225,7 @@ PC端项目架构：
 ![PC](/img/yolo-pc.png)
 
 
-# 使用Yolov5实现的detection效果图展示
+# 使用Yolov5实现的detection效果图展示(初期效果图)
 
 ![resualt1](/img/imtest13.JPG)
 
@@ -234,3 +234,88 @@ PC端项目架构：
 ![resualt3](/img/imtest16.png)
 
 ![resualt4](/img/imtest17.png)
+
+
+# 效果展示
+
+移动端项目架构：
+
+第一版（用户登录+注册+图片识别+拍照识别）：
+
+用户登录
+
+![Android](/img/android-login.jpg)
+
+用户注册
+
+![Android](/img/android-register.png)
+
+功能总览
+
+![Android](/img/android-functionshowcase.png)
+
+拍照识别
+
+![Android](/img/android-photoshoot.png)
+
+读图识别
+
+![Android](/img/android-readphoto.png)
+
+第二版（视频实时识别+区域闯入）
+
+目标识别
+
+![Android](/img/android-realtime.png)
+
+检测目标选择
+
+![Android](/img/android-targetselect.png)
+
+检测区域绘制
+
+![Android](/img/android-areaselect.png)
+
+区域内目标检测
+
+![Android](/img/android-riskdiscern.png)
+
+PC端项目架构：
+
+图片识别
+
+![pc](/img/pc-areaphotoidentification.png)
+
+图片区域识别及报警
+
+![pc](/img/pc-areaphotoalarm.png)
+
+视频/摄像头识别与区域闯入检测
+
+![pc](/img/pc-realtimeareaalarm1.png)
+
+
+![pc](/img/pc-realtimeareaalarm2.png)
+
+
+# 后续计划以及TodoList
+
+~~1. 完善文档，目前进度完成远超文档完善程度，文档依旧按照原计划在本人博客上进行更新，详情请参考：https://whiteicey.github.io/~~
+
+1. 目前文档进度已经跟进了开发进度，后续根据需求再考虑完善方向
+
+~~2. 目前在onnx剪枝和ncnn的协助下，尝试部署了无区域闯入版本的模型，全APP大小大约在120mb左右，认为在可接受范围内，后续尝试继续部署区域闯入模型在移动端~~
+
+2. 目前已经将区域闯入模型在移动端上，功能部署上已达预期
+
+3. 地质灾害识别部分需要全部重新训练，根据后续需求再判断是否需要完成
+
+~~4. 关于明烟明火识别监测，吊装作业安全监测，动火作业监测目前还没有特别成熟的实现思路，暂时搁置~~
+
+4. 明烟明火识别目前看来是有成熟的识别方案的（见下图），吊装作业安全监测，动火作业监测依旧搁置
+
+![fire](/img/fireidentify.jpg)
+
+5. 本项目仅为技术验证服务，不尝试整合模型，因为实在不会软件开发
+
+6. 只有掌握技术才掌握定价权
