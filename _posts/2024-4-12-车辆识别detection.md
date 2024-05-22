@@ -34,11 +34,11 @@ tags:
 
 # 需求分析与实现
 
-高后果区的8项检测内容，管线周边机械作业或重型车辆，通过监测，明烟明火识别监测，单/双人巡检监测，吊装作业安全监测，动火作业监测，管道附属设施损坏及偷盗监测，地质灾害监测，管线占压监测
+高后果区的8项检测内容，管线周边机械作业或重型车辆监测，通过监测，明烟明火识别监测，单/双人巡检监测，吊装作业安全监测，动火作业监测，管道附属设施损坏及偷盗监测，地质灾害监测，管线占压监测
 
 ![need](/img/need.png)
 
-按照目前的模型实现部分，可以完成管线周边机械作业或重型车辆，单/双人巡检监测，其中通过检测，管线占压监测依然可以使用yolo模型实现区域闯入模型，不过区域闯入模型涉及实施视频数据和区域划线
+按照目前的模型实现部分，可以完成管线周边机械作业或重型车辆监测，单/双人巡检监测，其中通过检测，管线占压监测依然可以使用yolo模型实现区域闯入模型，不过区域闯入模型涉及实施视频数据和区域划线
 
 关于地质灾害识别部分，需要花费时间训练新模型，可以放在后续规划中，但目前工作重心不在之上，暂且搁置。另外关于明烟明火识别监测，吊装作业安全监测，动火作业监测目前没有特别好的思路
 
@@ -169,14 +169,15 @@ PyQt是Qt框架的Python语言实现，由Riverbank Computing开发，是最强�
 >1. 性能：在性能这一模块则不得不提到yolov4，这也是yolov5的上一代，相较于yolov3的集大成者，采用了CSPDarknet53+SPP+PAN+YOLOv3的框架，通过堆料的方式，增加了Weighted-Residual-Connections (WRC)、Cross-Stage-Partial-connections (CSP)
 、Cross mini-Batch Normalization (CmBN)、Self-adversarial-training (SAT)、Mish-activation、Mosaic、data augmentation、CmBN、DropBlock regularization、CIoU loss技术实现了一种高效而强的目标检测模型,这些技巧主要应用于下面这些方面：
 >
->        用于backbone的BoF：CutMix和Mosaic数据增强，DropBlock正则化，Class label smoothing
+>      >用于backbone的BoF：CutMix和Mosaic数据增强，DropBlock正则化，Class label smoothing
 >
->        用于backbone的BoS：Mish激活函数，CSP，MiWRC
+>      >用于backbone的BoS：Mish激活函数，CSP，MiWRC
 >
->        用于检测器的BoF：CIoU-loss，CmBN，DropBlock正则化，Mosaic数据增强，Self-Adversarial 训练，消除网格敏感性，对单个ground-truth使用多个anchor，Cosine annealing scheduler，最佳超参数，Random training shapes
+>      >用于检测器的BoF：CIoU-loss，CmBN，DropBlock正则化，Mosaic数据增强，Self-Adversarial 训练，消除网格敏感性，对单个ground-truth使用多个anchor，Cosine annealing scheduler，最佳超参数，Random training shapes
 >
->        用于检测器的Bos：Mish激活函数，SPP，SAM，PAN，DIoU-NMS
->       此外作者还通过在输入网络分辨率，卷积层数，参数数量和层输出（filters）的数量之间找到最佳平衡，而这努力最终实现了yolov4在性能上的飞跃，而继承了这一框架的yolov5也是其完美性能的体现，在论文[YOLOv4: Optimal Speed and Accuracy of Object Detection](https://arxiv.org/abs/2004.10934)中大量的实验充分的证明了这一点
+>      >用于检测器的Bos：Mish激活函数，SPP，SAM，PAN，DIoU-NMS
+>       
+>    此外作者还通过在输入网络分辨率，卷积层数，参数数量和层输出（filters）的数量之间找到最佳平衡，而这努力最终实现了yolov4在性能上的飞跃，而继承了这一框架的yolov5也是其完美性能的体现，在论文[YOLOv4: Optimal Speed and Accuracy of Object Detection](https://arxiv.org/abs/2004.10934)中大量的实验充分的证明了这一点
 >
 >![yolov4](/img/yolov4.png)
 >
@@ -186,19 +187,42 @@ PyQt是Qt框架的Python语言实现，由Riverbank Computing开发，是最强�
 >
 >     但是不同于性能的一成不变，在yolov5的模型轻量化上则有着长足的进步，以使用darknet框架的yolo模型举例，yolov4有2444mb而yolov5则只有27mb，足足减少了90%，而这一切都是在不损失准确度指标的情况下实现的。
 >
->因此总结起来便是选择yolov5的原因，它拥有着作为集大成者的yolov4的模型性能和准确度，也有着轻量级及的模型大小，快速的推断速度和与yolov3的优秀兼容。
+>因此总结起来便是选择yolov5的原因，它拥有着作为集大成者的yolov4的模型性能和准确度，也有着轻量级的模型大小，快速的推断速度和与yolov3的优秀兼容。
 
-而除了对模型的更新还在
+而除了对模型的更新外还完成了管线周边机械作业或重型车辆监测，单/双人巡检监测，通过检测，管线占压监测并将这些检测模块在双端完成了部署，解决了高后果区的四项检测问题
+
+
+# 程序框图及使用逻辑
+
+移动端项目程序框图：
+
+第一版（用户注册+图片识别+拍照识别）：
+
+![Android](/img/andorid-flowchart.png)
+
+第二版（视频实时识别+区域闯入）
+
+![Android](/img/)
+
+PC端项目架构：
+
+![PC](/img/pc-flowchart.png)
 
 
 # 项目架构
 移动端项目架构：
 
-![Android](/img/yolo-pc.png)
+第一版（用户注册+图片识别+拍照识别）：
+
+![Android](/img/yolo-android.png)
+
+第二版（视频实时识别+区域闯入）
+
+![Android](/img/yolo-android2.png)
 
 PC端项目架构：
 
-![PC](/img/yolo-android.png)
+![PC](/img/yolo-pc.png)
 
 
 # 使用Yolov5实现的detection效果图展示
