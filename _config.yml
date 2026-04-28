@@ -59,15 +59,10 @@ kramdown:
 # Disqus（https://disqus.com/）
 # disqus_username: qiubaiying
 
-# Gitalk
-gitalk:
+# Utterances (https://utteranc.es)
+utterances:
   enable: true
-  clientID: Ov23liDeTVOFjs6chszE
-  clientSecret: aadfdad2286d1699806ac28b66bf423307c7a98a
-  repo: whiteicey.github.io
-  owner: whiteicey
-  admin: whiteicey
-  distractionFreeMode: true
+  repo: whiteicey/whiteicey.github.io
 
 
 # 统计
