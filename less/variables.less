@@ -1,8 +1,39 @@
-// Variables
+// ==========================================
+// Phase 1 Redesign — Design Tokens
+// ==========================================
 
-@brand-primary: #0085A1;
-@gray-dark: lighten(black, 25%);
-@gray: lighten(black, 50%);
-@gray-l: lighten(black, 75%);
-@white-faded: fade(white, 80%);
-@gray-light: #eee;
+// ── Brand Colors ──────────────────────────
+@brand-primary: #006D77;        // Deep teal — sophisticated, calm
+@brand-accent:  #D4A574;        // Warm gold — link hover, highlights
+
+// ── Text Colors ──────────────────────────
+@text-primary:   #2D2D2D;       // Near-black, softer than pure #000
+@text-secondary: #6B6B6B;       // Medium gray for meta, dates
+@text-muted:     #999999;       // Light gray for less important text
+
+// ── Background Colors ────────────────────
+@bg-primary:     #FAFAFA;       // Warm white page background
+@bg-card:        #FFFFFF;       // Pure white card surface
+@border-color:   #EBEBEB;       // Very light border
+@code-bg:        #F4F4F4;       // Code block background
+
+// ── Legacy Compat (kept for Bootstrap) ───
+@gray-dark:      @text-primary;  // was lighten(black, 25%) → now #2D2D2D
+@gray:           @text-secondary;// was lighten(black, 50%) → now #6B6B6B
+@gray-l:         @text-muted;    // was lighten(black, 75%) → now #999999
+@gray-light:     #EEEEEE;        // unchanged — Bootstrap border-gray
+@white-faded:    fade(white, 80%);
+
+// ── Spacing Scale (8pt grid) ─────────────
+@space-xs:  4px;
+@space-sm:  8px;
+@space-md:  16px;
+@space-lg:  24px;
+@space-xl:  32px;
+@space-2xl: 48px;
+@space-3xl: 64px;
+
+// ── Border Radius ─────────────────────────
+@radius-sm: 4px;
+@radius-md: 8px;
+@radius-lg: 12px;

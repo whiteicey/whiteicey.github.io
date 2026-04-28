@@ -30,17 +30,52 @@
     <!-- Pygments Github CSS -->
     <link rel="stylesheet" href="{{ "/css/syntax.css" | prepend: site.baseurl }}">
 
-    <!-- Custom Fonts -->
-    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
-    <!-- Hux change font-awesome CDN to qiniu -->
+    <!-- Google Fonts: Inter (body) + Source Serif 4 (headings/meta) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <!-- Phase 1: CSS Custom Properties for Dark Mode Foundation -->
+    <style>
+        :root {
+            --color-brand-primary: #006D77;
+            --color-brand-accent:  #D4A574;
+            --color-text-primary:   #2D2D2D;
+            --color-text-secondary: #6B6B6B;
+            --color-text-muted:     #999999;
+            --color-bg-primary:     #FAFAFA;
+            --color-bg-card:        #FFFFFF;
+            --color-border:         #EBEBEB;
+            --color-code-bg:        #F4F4F4;
+            --color-link:           #006D77;
+            --color-selection-bg:   #006D77;
+            --color-selection-text: #FFFFFF;
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+            --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.06);
+        }
 
-    <!-- Hux Delete, sad but pending in China
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
-    css'>
-    -->
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-brand-primary: #4DB6AC;
+                --color-brand-accent:  #E6C9A0;
+                --color-text-primary:   #E4E4E4;
+                --color-text-secondary: #A0A0A0;
+                --color-text-muted:     #707070;
+                --color-bg-primary:     #1A1A2E;
+                --color-bg-card:        #16213E;
+                --color-border:         #2A2A4A;
+                --color-code-bg:        #0F3460;
+                --color-link:           #4DB6AC;
+                --color-selection-bg:   #4DB6AC;
+                --color-selection-text: #1A1A2E;
+                --card-shadow: 0 1px 3px rgba(0,0,0,0.30), 0 1px 2px rgba(0,0,0,0.20);
+                --card-shadow-hover: 0 4px 16px rgba(0,0,0,0.40), 0 2px 6px rgba(0,0,0,0.25);
+            }
+        }
+    </style>
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
