@@ -10,10 +10,6 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="{{ site.baseurl }}/">{{ site.title }}</a>
-            <!-- Dark mode toggle -->
-            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
-                <span class="theme-icon">&#9789;</span>
-            </button>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -27,7 +23,12 @@
                     <li>
                         <a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
                     </li>
-                    {% endif %}{% endfor %}
+                    {% endif %}                    {% endfor %}
+                    <li>
+                        <a id="theme-toggle" href="javascript:void(0)" class="theme-toggle" aria-label="Toggle dark mode">
+                            <span class="theme-icon">&#9789;</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -1128,34 +1128,19 @@ img::-moz-selection {
   background: white !important;
 }
 .theme-toggle {
-  position: absolute;
-  right: 24px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  font-size: 22px;
   cursor: pointer;
-  color: white;
-  padding: 4px;
-  line-height: 1;
-  transition: transform 0.3s ease, color 0.3s ease;
-  z-index: 10;
+  font-size: 20px;
+  transition: opacity 0.3s ease;
 }
 .theme-toggle:hover {
-  transform: translateY(-50%) rotate(15deg);
+  opacity: 0.7;
 }
 .theme-toggle .theme-icon {
-  display: block;
+  display: inline-block;
   transition: transform 0.3s ease;
 }
-.navbar-custom.is-fixed .theme-toggle {
-  color: var(--color-text-primary, #2d2d2d);
-}
-@media only screen and (max-width: 767px) {
-  .theme-toggle {
-    right: 60px;
-  }
+.theme-toggle:hover .theme-icon {
+  transform: rotate(15deg);
 }
 .page-fullscreen .intro-header {
   position: fixed;
