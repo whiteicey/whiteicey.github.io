@@ -56,9 +56,13 @@ article{
 }
 blockquote {
 	color: var(--color-text-secondary, @text-secondary);
-	font-style: italic;
+	font-style: normal;
 	font-size: 0.95em;
-	margin: @space-md 0 @space-md;
+	margin: @space-xl 0;
+	padding: @space-md @space-lg;
+	background: mix(@bg-primary, @border-color, 50%);
+	border-left: 4px solid var(--color-brand-primary, @brand-primary);
+	border-radius: 0 @radius-sm @radius-sm 0;
 	p{
 		margin: 0;
 	}
@@ -94,8 +98,26 @@ select{
 
 
 // override table style in bootstrap
+// Table Styles — clean, striped, warm header
 .table th, .table td{
-	border: 1px solid var(--color-border, @border-color) !important;
+	border: none !important;
+	border-bottom: 1px solid var(--color-border, @border-color) !important;
+	padding: @space-sm @space-md;
+}
+.table thead th{
+	background: linear-gradient(135deg, var(--color-brand-primary, @brand-primary), darken(@brand-primary, 8%));
+	color: white;
+	font-weight: 600;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	border-bottom: none !important;
+}
+.table tbody tr:nth-child(even){
+	background: var(--color-bg-primary, @bg-primary);
+}
+.table tbody tr:hover{
+	background: fade(@brand-primary, 6%);
 }
 
 hr.small {
@@ -105,15 +127,19 @@ hr.small {
 	border-color: white;
 }
 // add by Hux
-pre,.table-responsive{
-	// sometimes you should use vendor-feature.
-	-webkit-overflow-scrolling: touch;
+// Code typography — JetBrains Mono with ligatures
+pre, code, kbd, samp {
+	font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, 'Courier New', monospace;
 }
 pre code{
 	display: block;
 	width: auto;
-	white-space: pre;	// save it but no-wrap;
-	word-wrap: normal;	// no-wrap
+	white-space: pre;
+	word-wrap: normal;
+	font-variant-ligatures: contextual;
+}
+pre,.table-responsive{
+	-webkit-overflow-scrolling: touch;
 }
 
 // In the list of posts
@@ -203,19 +229,15 @@ pre code{
 
 // materialize, mobile only
 @media only screen and (max-width: 767px) {
-	/**
-	 * Layout
-	 * Since V1.6 we use absolute positioning to prevent to expand container-fluid
-	 * which would cover tags. A absolute positioning make a new layer.
-	 */
 	.navbar-default .navbar-collapse{
 		position: absolute; 
-     	right: 0;
+		right: 0;
 		border: none;
-		background: white;
-		box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
-		box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.239216) 0px 1px 4px;
-		border-radius: 2px;
+		background: rgba(255,255,255,0.92);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+		border-radius: @radius-sm;
 		width: 170px;
 	}
 	/**
@@ -357,8 +379,10 @@ pre code{
 		&.is-fixed {
 			position: fixed;
 			top: -61px;
-			background-color: fade(white, 90%);
-			border-bottom: 1px solid darken(white, 5%);
+			background-color: var(--nav-bg, rgba(255, 255, 255, 0.85));
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			border-bottom: 1px solid var(--color-border, @border-color);
 			-webkit-transition: -webkit-transform 0.3s;
 			-moz-transition: -moz-transform 0.3s;
 			transition: transform 0.3s;
@@ -423,19 +447,26 @@ pre code{
 		text-align: center;
 		h1 {
 			margin-top: 0;
-			font-size: 50px;
+			font-size: 38px;
+			font-weight: 700;
+			letter-spacing: -0.5px;
 		}
 		.subheading {
 			.sans-serif;
-			font-size: 18px;
-			line-height: 1.1;
+			font-size: 16px;
+			line-height: 1.5;
 			display: block;
-			font-weight: 300;
-			margin: 10px 0 0;
+			font-weight: 400;
+			margin: @space-sm 0 0;
+			opacity: 0.85;
+			letter-spacing: 0.5px;
 		}
 		@media only screen and (min-width: 768px) {
 			h1 {
-				font-size: 80px;
+				font-size: 52px;
+			}
+			.subheading {
+				font-size: 18px;
 			}
 		}
 	}
@@ -709,15 +740,17 @@ form .row:first-child .floating-label-form-group {
 		> span {
 			.sans-serif;
 			text-transform: uppercase;
-			font-size: 13px;
-			font-weight: 800;
+			font-size: 12px;
+			font-weight: 700;
 			letter-spacing: 1px;
-			padding: @space-sm;
-			background-color: white;
-			border-radius: 0;
+			padding: @space-sm @space-lg;
+			background-color: var(--color-bg-card, @bg-card);
+			border: 1px solid var(--color-border, @border-color);
+			border-radius: @radius-md;
+			transition: all 0.25s ease;
 			@media only screen and (min-width: 768px) {
-				font-size: 14px;
-				padding: @space-md @space-lg;
+				font-size: 13px;
+				padding: @space-sm @space-xl;
 			}
 		}
 
@@ -728,7 +761,9 @@ form .row:first-child .floating-label-form-group {
 		> a:focus {
 			color: white;
 			background-color: var(--color-brand-primary, @brand-primary);
-			border: 1px solid var(--color-brand-primary, @brand-primary);
+			border-color: var(--color-brand-primary, @brand-primary);
+			box-shadow: var(--card-shadow-hover, 0 4px 12px rgba(0,0,0,0.10));
+			transform: translateY(-1px);
 
 			// V1.6 display title
 			> span{
@@ -806,18 +841,25 @@ img::-moz-selection {
 		padding: @space-2xl 0;
 	}
 }
-// tag_cloud
+// tag_cloud — outline pill style, fills on hover
 #tag_cloud{
 	margin: @space-md 0 @space-md 0;
 	a,.tag{
-		font-size: 14px;
-		border: none;
+		font-size: 13px;
+		border: 1.5px solid var(--color-border, @border-color);
+		border-radius: @radius-sm;
 		line-height: 28px;
 		margin: 0 2px;
 		margin-bottom: @space-sm;
-		background: var(--color-border, @border-color);
+		padding: 0 @space-sm;
+		background: transparent;
+		color: var(--color-text-secondary, @text-secondary) !important;
+		text-decoration: none;
+		transition: all 0.2s ease;
 		&:hover, &:active{
 			background-color: var(--color-brand-primary, @brand-primary) !important;
+			color: white !important;
+			border-color: var(--color-brand-primary, @brand-primary);
 		}
 	}
 	@media only screen and (min-width: 768px) {
@@ -1002,7 +1044,41 @@ img::-moz-selection {
 }
 
 
-// Hux fullscreen mode in 404.html
+// ── Dark Mode Toggle Button ───────────
+.theme-toggle {
+	position: absolute;
+	right: @space-lg;
+	top: 50%;
+	transform: translateY(-50%);
+	background: none;
+	border: none;
+	font-size: 22px;
+	cursor: pointer;
+	color: white;
+	padding: @space-xs;
+	line-height: 1;
+	transition: transform 0.3s ease, color 0.3s ease;
+	z-index: 10;
+
+	&:hover {
+		transform: translateY(-50%) rotate(15deg);
+	}
+
+	.theme-icon {
+		display: block;
+		transition: transform 0.3s ease;
+	}
+}
+
+.navbar-custom.is-fixed .theme-toggle {
+	color: var(--color-text-primary, @text-primary);
+}
+
+@media only screen and (max-width: 767px) {
+	.theme-toggle {
+		right: 60px;
+	}
+}
 
 .page-fullscreen .intro-header{
 	position: fixed;

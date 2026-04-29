@@ -1,10 +1,36 @@
 /**
- * Phase 2 — Blog Reading Experience Enhancements
- * Progress bar | Back to top | Code copy | Image lightbox
+ * Phase 2+3 — Blog Reading Experience Enhancements
+ * Dark mode toggle | Progress bar | Back to top | Code copy | Image lightbox
  * Hux Blog Jekyll theme — vanilla JS, no dependencies
  */
 (function() {
     'use strict';
+
+    // ── Dark Mode Toggle ──────────────────────
+    function initDarkMode() {
+        var html = document.documentElement;
+        var btn = document.getElementById('theme-toggle');
+        var icon = btn ? btn.querySelector('.theme-icon') : null;
+        if (!btn) return;
+
+        var saved = localStorage.getItem('theme');
+        if (saved === 'dark') {
+            html.setAttribute('data-theme', 'dark');
+            if (icon) icon.innerHTML = '&#9788;';
+        }
+
+        btn.addEventListener('click', function() {
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                if (icon) icon.innerHTML = '&#9789;';
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                if (icon) icon.innerHTML = '&#9788;';
+            }
+        });
+    }
 
     // ── Utility: throttle ─────────────────────
     function throttle(fn, delay) {
@@ -189,6 +215,7 @@
 
     // ── Init all on DOM ready ─────────────────
     function initAll() {
+        initDarkMode();
         initProgressBar();
         initBackToTop();
         initCodeCopy();

@@ -183,9 +183,13 @@ article {
 }
 blockquote {
   color: var(--color-text-secondary, #6b6b6b);
-  font-style: italic;
+  font-style: normal;
   font-size: 0.95em;
-  margin: 16px 0 16px;
+  margin: 32px 0;
+  padding: 16px 24px;
+  background: #eff0f1;
+  border-left: 4px solid var(--color-brand-primary, #006d77);
+  border-radius: 0 4px 4px 0;
 }
 blockquote p {
   margin: 0;
@@ -215,7 +219,24 @@ select.sel-lang {
 }
 .table th,
 .table td {
-  border: 1px solid var(--color-border, #ebebeb) !important;
+  border: none !important;
+  border-bottom: 1px solid var(--color-border, #ebebeb) !important;
+  padding: 8px 16px;
+}
+.table thead th {
+  background: linear-gradient(135deg, var(--color-brand-primary, #006d77), #00484e);
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: none !important;
+}
+.table tbody tr:nth-child(even) {
+  background: var(--color-bg-primary, #f3f4f6);
+}
+.table tbody tr:hover {
+  background: rgba(0, 109, 119, 0.06);
 }
 hr.small {
   max-width: 100px;
@@ -224,14 +245,21 @@ hr.small {
   border-color: white;
 }
 pre,
-.table-responsive {
-  -webkit-overflow-scrolling: touch;
+code,
+kbd,
+samp {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, 'Courier New', monospace;
 }
 pre code {
   display: block;
   width: auto;
   white-space: pre;
   word-wrap: normal;
+  font-variant-ligatures: contextual;
+}
+pre,
+.table-responsive {
+  -webkit-overflow-scrolling: touch;
 }
 .postlist-container {
   margin-bottom: 15px;
@@ -320,19 +348,15 @@ pre code {
   letter-spacing: 0.5px;
 }
 @media only screen and (max-width: 767px) {
-  /**
-	 * Layout
-	 * Since V1.6 we use absolute positioning to prevent to expand container-fluid
-	 * which would cover tags. A absolute positioning make a new layer.
-	 */
   .navbar-default .navbar-collapse {
     position: absolute;
     right: 0;
     border: none;
-    background: white;
-    box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
-    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.239216) 0px 1px 4px;
-    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
     width: 170px;
   }
   /**
@@ -471,8 +495,10 @@ pre code {
   .navbar-custom.is-fixed {
     position: fixed;
     top: -61px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-bottom: 1px solid #f2f2f2;
+    background-color: var(--nav-bg, rgba(255, 255, 255, 0.85));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border, #ebebeb);
     -webkit-transition: -webkit-transform 0.3s;
     -moz-transition: -moz-transform 0.3s;
     transition: transform 0.3s;
@@ -543,7 +569,9 @@ pre code {
 .intro-header .site-heading h1,
 .intro-header .page-heading h1 {
   margin-top: 0;
-  font-size: 50px;
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 .intro-header .site-heading .subheading,
 .intro-header .page-heading .subheading {
@@ -553,16 +581,22 @@ pre code {
      */
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
   line-height: 1.7;
-  font-size: 18px;
-  line-height: 1.1;
+  font-size: 16px;
+  line-height: 1.5;
   display: block;
-  font-weight: 300;
-  margin: 10px 0 0;
+  font-weight: 400;
+  margin: 8px 0 0;
+  opacity: 0.85;
+  letter-spacing: 0.5px;
 }
 @media only screen and (min-width: 768px) {
   .intro-header .site-heading h1,
   .intro-header .page-heading h1 {
-    font-size: 80px;
+    font-size: 52px;
+  }
+  .intro-header .site-heading .subheading,
+  .intro-header .page-heading .subheading {
+    font-size: 18px;
   }
 }
 .intro-header .post-heading h1 {
@@ -814,18 +848,20 @@ form .row:first-child .floating-label-form-group {
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
   line-height: 1.7;
   text-transform: uppercase;
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 12px;
+  font-weight: 700;
   letter-spacing: 1px;
-  padding: 8px;
-  background-color: white;
-  border-radius: 0;
+  padding: 8px 24px;
+  background-color: var(--color-bg-card, #ffffff);
+  border: 1px solid var(--color-border, #ebebeb);
+  border-radius: 8px;
+  transition: all 0.25s ease;
 }
 @media only screen and (min-width: 768px) {
   .pager li > a,
   .pager li > span {
-    font-size: 14px;
-    padding: 16px 24px;
+    font-size: 13px;
+    padding: 8px 32px;
   }
 }
 .pager li > a {
@@ -835,7 +871,9 @@ form .row:first-child .floating-label-form-group {
 .pager li > a:focus {
   color: white;
   background-color: var(--color-brand-primary, #006d77);
-  border: 1px solid var(--color-brand-primary, #006d77);
+  border-color: var(--color-brand-primary, #006d77);
+  box-shadow: var(--card-shadow-hover, 0 4px 12px rgba(0, 0, 0, 0.1));
+  transform: translateY(-1px);
 }
 .pager li > a:hover > span,
 .pager li > a:focus > span {
@@ -912,18 +950,25 @@ img::-moz-selection {
 }
 #tag_cloud a,
 #tag_cloud .tag {
-  font-size: 14px;
-  border: none;
+  font-size: 13px;
+  border: 1.5px solid var(--color-border, #ebebeb);
+  border-radius: 4px;
   line-height: 28px;
   margin: 0 2px;
   margin-bottom: 8px;
-  background: var(--color-border, #ebebeb);
+  padding: 0 8px;
+  background: transparent;
+  color: var(--color-text-secondary, #6b6b6b) !important;
+  text-decoration: none;
+  transition: all 0.2s ease;
 }
 #tag_cloud a:hover,
 #tag_cloud .tag:hover,
 #tag_cloud a:active,
 #tag_cloud .tag:active {
   background-color: var(--color-brand-primary, #006d77) !important;
+  color: white !important;
+  border-color: var(--color-brand-primary, #006d77);
 }
 @media only screen and (min-width: 768px) {
   #tag_cloud {
@@ -1081,6 +1126,36 @@ img::-moz-selection {
 }
 #ds-smilies-tooltip ul.ds-smilies-tabs li a {
   background: white !important;
+}
+.theme-toggle {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: white;
+  padding: 4px;
+  line-height: 1;
+  transition: transform 0.3s ease, color 0.3s ease;
+  z-index: 10;
+}
+.theme-toggle:hover {
+  transform: translateY(-50%) rotate(15deg);
+}
+.theme-toggle .theme-icon {
+  display: block;
+  transition: transform 0.3s ease;
+}
+.navbar-custom.is-fixed .theme-toggle {
+  color: var(--color-text-primary, #2d2d2d);
+}
+@media only screen and (max-width: 767px) {
+  .theme-toggle {
+    right: 60px;
+  }
 }
 .page-fullscreen .intro-header {
   position: fixed;
