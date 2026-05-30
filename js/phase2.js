@@ -213,6 +213,42 @@
         }
     }
 
+    // ── Nav Scroll Enhancement ─────────────────
+    function initNavScroll() {
+        var nav = document.querySelector('.navbar-custom');
+        if (!nav) return;
+        window.addEventListener('scroll', throttle(function() {
+            nav.classList.toggle('is-scrolled', window.scrollY > 20);
+        }, 50), { passive: true });
+    }
+
+    // ── Post Card Scroll Reveal ──────────────────
+    function initScrollReveal() {
+        var cards = document.querySelectorAll('.post-card');
+        if (!cards.length) return;
+
+        if (!('IntersectionObserver' in window)) {
+            // Fallback: show all immediately
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].classList.add('revealed');
+            }
+            return;
+        }
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) {
+                    e.target.classList.add('revealed');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.08 });
+
+        for (var i = 0; i < cards.length; i++) {
+            observer.observe(cards[i]);
+        }
+    }
+
     // ── Init all on DOM ready ─────────────────
     function initAll() {
         initDarkMode();
@@ -220,6 +256,8 @@
         initBackToTop();
         initCodeCopy();
         initLightbox();
+        initNavScroll();
+        initScrollReveal();
     }
 
     if (document.readyState === 'loading') {

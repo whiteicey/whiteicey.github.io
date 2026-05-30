@@ -47,6 +47,21 @@ layout: default
     </div>
 </header>
 
+<!-- Post Meta Bar -->
+<div class="post-meta-bar">
+    <div class="container">
+        <span class="post-meta-bar__item">{{ page.date | date: "%B %-d, %Y" }}</span>
+        <span class="post-meta-bar__item">{{ page.content | number_of_words | divided_by:200 | plus:1 }} min read</span>
+        {% if page.tags.size > 0 %}
+        <div class="post-meta-bar__tags">
+            {% for tag in page.tags %}
+            <a href="{{ site.baseurl }}/tags/#{{ tag }}" class="tag-pill tag-pill--sm">{{ tag }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
 <!-- Post Content -->
 <article>
     <div class="container">

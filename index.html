@@ -3,40 +3,78 @@ layout: page
 description: "Farewell,good hunter.May you find your worth in the waking world."
 ---
 
-{% for post in paginator.posts %}
-<div class="post-preview">
-    <a href="{{ post.url | prepend: site.baseurl }}">
-        <h2 class="post-title">
-            {{ post.title }}
+{% if paginator.posts.size > 0 %}
+  {% for post in paginator.posts %}
+    {% if forloop.first %}
+    <!-- Featured Post -->
+    <article class="featured-post" style="background-image: url('{{ post.header-img | default: site.header-img }}')">
+      <div class="featured-post__overlay"></div>
+      <div class="featured-post__content">
+        {% if post.tags.size > 0 %}
+        <span class="featured-post__tag">{{ post.tags[0] }}</span>
+        {% endif %}
+        <h2 class="featured-post__title">
+          <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h2>
         {% if post.subtitle %}
-        <h3 class="post-subtitle">
-            {{ post.subtitle }}
-        </h3>
+        <p class="featured-post__subtitle">{{ post.subtitle }}</p>
         {% endif %}
-        <div class="post-content-preview">
-            {{ post.content | strip_html | truncate:200 }}
+        <div class="featured-post__meta">
+          <time>{{ post.date | date: "%B %-d, %Y" }}</time>
+          <span class="featured-post__read-time">{{ post.content | number_of_words | divided_by:200 | plus:1 }} min read</span>
         </div>
-    </a>
-    <p class="post-meta">
-        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
-    </p>
-</div>
-<hr>
-{% endfor %}
+      </div>
+    </article>
+    {% else %}
+      {% if forloop.index == 2 %}
+      <!-- Post Grid (opens here, closes after endfor) -->
+      <div class="post-grid">
+      {% endif %}
+    <article class="post-card">
+      {% if post.header-img %}
+      <a href="{{ post.url | prepend: site.baseurl }}" class="post-card__img-link">
+        <div class="post-card__img" style="background-image: url('{{ post.header-img }}')"></div>
+      </a>
+      {% endif %}
+      <div class="post-card__body">
+        {% if post.tags.size > 0 %}
+        <span class="post-card__tag">{{ post.tags[0] }}</span>
+        {% endif %}
+        <h3 class="post-card__title">
+          <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h3>
+        {% if post.subtitle %}
+        <p class="post-card__subtitle">{{ post.subtitle }}</p>
+        {% else %}
+        <p class="post-card__subtitle">{{ post.content | strip_html | truncate: 120 }}</p>
+        {% endif %}
+        <footer class="post-card__meta">
+          <time>{{ post.date | date: "%b %-d, %Y" }}</time>
+          <span>&middot;</span>
+          <span>{{ post.content | number_of_words | divided_by:200 | plus:1 }} min</span>
+        </footer>
+      </div>
+    </article>
+    {% endif %}
+  {% endfor %}
+  {% if paginator.posts.size > 1 %}
+  </div><!-- /.post-grid -->
+  {% endif %}
+{% endif %}
 
 <!-- Pager -->
 {% if paginator.total_pages > 1 %}
-<ul class="pager">
+<div class="post-pager">
     {% if paginator.previous_page %}
-    <li class="previous">
-        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
-    </li>
+    <a class="post-pager__btn post-pager__btn--prev" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">
+        <span>&larr;</span> Newer Posts
+    </a>
     {% endif %}
+    <span class="post-pager__info">{{ paginator.page }} / {{ paginator.total_pages }}</span>
     {% if paginator.next_page %}
-    <li class="next">
-        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
-    </li>
+    <a class="post-pager__btn post-pager__btn--next" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">
+        Older Posts <span>&rarr;</span>
+    </a>
     {% endif %}
-</ul>
+</div>
 {% endif %}
