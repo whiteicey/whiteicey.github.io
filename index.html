@@ -7,7 +7,7 @@ description: "Farewell,good hunter.May you find your worth in the waking world."
   {% for post in paginator.posts %}
     {% if forloop.first %}
     <!-- Featured Post -->
-    <article class="featured-post" style="background-image: url('{{ post.header-img | default: site.header-img }}')">
+    <article class="featured-post" style="background-image: url('{{ site.baseurl }}/{{ post.header-img | default: site.header-img }}')">
       <div class="featured-post__overlay"></div>
       <div class="featured-post__content">
         {% if post.tags.size > 0 %}
@@ -33,7 +33,7 @@ description: "Farewell,good hunter.May you find your worth in the waking world."
     <article class="post-card">
       {% if post.header-img %}
       <a href="{{ post.url | prepend: site.baseurl }}" class="post-card__img-link">
-        <div class="post-card__img" style="background-image: url('{{ post.header-img }}')"></div>
+        <div class="post-card__img" style="background-image: url('{{ site.baseurl }}/{{ post.header-img }}')"></div>
       </a>
       {% endif %}
       <div class="post-card__body">

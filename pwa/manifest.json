@@ -1,7 +1,7 @@
 {
-  "name": "BY Blog",
-  "short_name": "BY Blog",
-  "description": "A personal blog by engineer",
+  "name": "秋的博客 | AUTUMN Blog",
+  "short_name": "AUTUMN Blog",
+  "description": "Farewell, good hunter. May you find your worth in the waking world.",
   "icons": [{
     "src": "icons/pwa_icon_128.png",
     "sizes": "128x128",

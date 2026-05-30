@@ -5,7 +5,7 @@ header-img: img/post-bg-desk.jpg
 email: 1269736732@qq.com
 description: "Farewell,good hunter.May you find your worth in the waking world."
 keyword: "Blog, 秋的博客, C/C++, Python，Rust, 博客 "
-url: "http://whiteicey.github.io"          # your host, for absolute URL
+url: "https://whiteicey.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/whiteicey/whiteicey.github.io.git" # you code repository
 
@@ -17,7 +17,7 @@ sidebar-avatar: /img/about-test.jpg      # use absolute URL, seeing it's used in
 
 
 # SNS settings
-RSS: false
+RSS: true
 weibo_username:     <del>nothing</del>
 zhihu_username:     <del>nothing</del>
 github_username:    whiteicey
