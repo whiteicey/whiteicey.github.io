@@ -59,7 +59,7 @@
 .side-catalog {
   display: block;
   overflow: auto;
-  height: 100%;
+  max-height: calc(100vh - 80px);
   padding-bottom: 40px;
   width: 195px;
 }
@@ -497,9 +497,9 @@ pre,
   .navbar-custom.is-fixed {
     position: fixed;
     top: -61px;
-    background-color: var(--nav-bg, rgba(255, 255, 255, 0.85));
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background-color: var(--nav-bg, rgba(255, 255, 255, 0.95));
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border-bottom: 1px solid var(--color-border, #ebebeb);
     -webkit-transition: -webkit-transform 0.3s;
     -moz-transition: -moz-transform 0.3s;
@@ -1604,10 +1604,6 @@ blockquote::before {
 .navbar-custom.is-scrolled {
   box-shadow: var(--shadow-sm);
 }
-.navbar-custom {
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-}
 
 /* --- Modern Footer --- */
 .site-footer {
@@ -1734,15 +1730,11 @@ blockquote::before {
 
 /* --- Side Catalog Enhancement --- */
 .side-catalog {
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  background: rgba(255,255,255,.85);
   border-radius: var(--radius-md, .75rem);
-  border: 1px solid var(--color-border, #ebebeb);
   padding: 1rem 1rem 40px 1rem;
 }
 [data-theme="dark"] .side-catalog {
-  background: rgba(22,33,62,.85);
+  background: rgba(22,33,62,.65);
 }
 .side-catalog .catalog-body .active {
   border-radius: 4px;
@@ -1766,15 +1758,14 @@ blockquote::before {
 
 /* --- Post Meta Bar --- */
 .post-meta-bar {
-  background: var(--color-bg-card, #fff);
-  border-bottom: 1px solid var(--color-border, #ebebeb);
-  padding: .85rem 0;
+  padding: .75rem 0;
+  margin-bottom: .5rem;
 }
 .post-meta-bar .container {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: .75rem;
 }
 .post-meta-bar__item {
   font-size: .82rem;
