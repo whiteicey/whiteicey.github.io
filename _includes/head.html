@@ -108,7 +108,8 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- ga & ba script hoook -->
+    <!-- MathJax: only load when page.mathjax is true -->
+    {% if page.mathjax %}
     <script>
 	MathJax = {
 		tex: {
@@ -140,4 +141,5 @@
 	};
     </script>
     <script id="MathJax-script" async src="https://cdn.staticfile.org/mathjax/3.0.1/es5/tex-svg.js"></script>
+    {% endif %}
 </head>

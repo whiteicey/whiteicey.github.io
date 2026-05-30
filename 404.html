@@ -1,25 +1,31 @@
 ---
 layout: default
-description: "你来到了没有知识的荒原 🙊"
+description: "你来到了没有知识的荒原"
 header-img: "img/404-bg.jpg"
 permalink: /404.html
 ---
 
-
 <!-- Page Header -->
 <header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-				<div class="site-heading" id="tag-heading">
-					<h1>404</h1>
-					<span class="subheading">{{ page.description }}</span>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading error-page" id="tag-heading">
+                    <span class="error-code">404</span>
+                    <h1>迷路了</h1>
+                    <span class="subheading">{{ page.description }}</span>
+                    <a href="{{ site.baseurl }}/" class="error-home-btn">
+                        <span>返回首页</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
 
 <script>
-	document.body.classList.add('page-fullscreen');
+    document.body.classList.add('page-fullscreen');
 </script>

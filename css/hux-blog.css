@@ -1799,3 +1799,230 @@ noscript + .post-grid .post-card,
   opacity: 1;
   transform: none;
 }
+
+/* ============================================
+   Phase 5: Visual Polish & Micro-interactions
+   ============================================ */
+
+/* --- Typography: Font Hierarchy --- */
+.post-heading h1,
+.site-heading h1,
+.featured-post__title {
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+.post-container blockquote p {
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+.post-meta,
+.post-card__meta,
+.featured-post__meta {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-style: italic;
+}
+.navbar-custom,
+.tag-pill,
+.footer-section {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* --- Post Heading Accent Decoration --- */
+.post-container h2 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.65rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  padding-left: 1rem;
+  border-left: 3px solid var(--color-brand-accent, #D4A574);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+.post-container h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-text-secondary, #6b6b6b);
+  margin-top: 2rem;
+}
+
+/* --- Link Underline Animation --- */
+.post-container a:not(.tag):not(.pager a):not(.anchor) {
+  color: var(--color-brand-primary, #006d77);
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 109, 119, 0.25);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+}
+.post-container a:not(.tag):not(.pager a):not(.anchor):hover {
+  color: var(--color-brand-accent, #D4A574);
+  text-decoration-color: var(--color-brand-accent, #D4A574);
+  text-decoration-thickness: 2px;
+}
+
+/* --- Image Presentation --- */
+.post-container img:not(.no-lightbox) {
+  border-radius: var(--radius-md, 0.75rem);
+  box-shadow: var(--shadow-md);
+}
+
+/* Image Caption */
+.post-container img + em,
+.post-container small.img-hint {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--color-text-muted, #999);
+}
+
+/* --- Section Divider Headers (h5) --- */
+.post-container h5 {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-brand-primary, #006d77);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--color-border, #ebebeb);
+  position: relative;
+}
+.post-container h5::before {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--color-brand-accent, #D4A574);
+}
+
+/* --- Gold Accent: Progress Bar Gradient --- */
+#reading-progress {
+  background: linear-gradient(90deg,
+    var(--color-brand-primary, #006d77) 0%,
+    var(--color-brand-accent, #D4A574) 100%) !important;
+}
+
+/* --- Sidebar Section Decoration --- */
+.sidebar-container h5::after {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 2px;
+  background: var(--color-brand-accent, #D4A574);
+  margin-top: 0.5rem;
+}
+
+/* --- Nav Link Underline Animation (Desktop) --- */
+@media (min-width: 768px) {
+  .navbar-custom .nav li a {
+    position: relative;
+  }
+  .navbar-custom .nav li a::after {
+    content: "";
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .navbar-custom .nav li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* --- 404 Page Styling --- */
+.error-page .error-code {
+  display: block;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: clamp(6rem, 20vw, 12rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  background: linear-gradient(135deg,
+    rgba(255,255,255,0.95) 0%,
+    rgba(212,165,116,0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  animation: error-float 6s ease-in-out infinite;
+}
+@keyframes error-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.error-page h1 {
+  font-size: 2rem !important;
+  font-weight: 400;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+.error-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding: 0.85rem 1.75rem;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 2rem;
+  color: white !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.error-home-btn:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateX(4px);
+  color: white !important;
+}
+.error-home-btn svg {
+  transition: transform 0.25s ease;
+}
+.error-home-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* --- Accessible Focus States --- */
+a:focus-visible,
+button:focus-visible,
+.post-card:focus-visible,
+.tag-pill:focus-visible {
+  outline: 2px solid var(--color-brand-accent, #D4A574);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* --- Mobile Touch Targets --- */
+@media (max-width: 767px) {
+  .navbar-toggle {
+    min-width: 48px;
+    min-height: 48px;
+  }
+  #back-to-top {
+    width: 48px;
+    height: 48px;
+  }
+  .post-card__body {
+    padding: 1rem 1.25rem 1.25rem;
+  }
+}
+
+/* --- Stagger Timing Enhancement --- */
+.post-card:nth-child(7) { transition-delay: .36s; }
+.post-card:nth-child(8) { transition-delay: .42s; }
+.post-card:nth-child(9) { transition-delay: .48s; }
