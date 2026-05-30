@@ -40,27 +40,16 @@ layout: default
                     {% comment %} if page.subtitle {% endcomment %}
                     <h2 class="subheading">{{ page.subtitle }}</h2>
                     {% comment %} endif {% endcomment %}
-                    <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
+                    <div class="meta">
+                        <span>Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
+                        <span class="meta-separator">&middot;</span>
+                        <span>{{ page.content | number_of_words | divided_by:200 | plus:1 }} min read</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </header>
-
-<!-- Post Meta Bar -->
-<div class="post-meta-bar">
-    <div class="container">
-        <span class="post-meta-bar__item">{{ page.date | date: "%B %-d, %Y" }}</span>
-        <span class="post-meta-bar__item">{{ page.content | number_of_words | divided_by:200 | plus:1 }} min read</span>
-        {% if page.tags.size > 0 %}
-        <div class="post-meta-bar__tags">
-            {% for tag in page.tags %}
-            <a href="{{ site.baseurl }}/tags/#{{ tag }}" class="tag-pill tag-pill--sm">{{ tag }}</a>
-            {% endfor %}
-        </div>
-        {% endif %}
-    </div>
-</div>
 
 <!-- Post Content -->
 <article>
