@@ -1,36 +1,30 @@
 <!-- Footer -->
 <footer class="site-footer">
     <div class="container">
-        <div class="footer-grid">
+        <div class="footer-content">
             <div class="footer-brand">
                 <h4>{{ site.SEOTitle }}</h4>
                 <p class="footer-tagline">{{ site.sidebar-about-description }}</p>
             </div>
-            <div class="footer-section">
-                <h5>Navigate</h5>
-                <ul>
-                    <li><a href="{{ site.baseurl }}/">Home</a></li>
-                    <li><a href="{{ site.baseurl }}/tags/">Tags</a></li>
-                    <li><a href="{{ site.baseurl }}/about/">About</a></li>
-                    {% if site.RSS %}
-                    <li><a href="{{ "/feed.xml" | prepend: site.baseurl }}">RSS</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h5>Connect</h5>
-                <div class="footer-social-icons">
-                    {% if site.github_username %}
-                    <a target="_blank" href="https://github.com/{{ site.github_username }}" aria-label="GitHub">
-                        <i class="fa fa-github"></i>
-                    </a>
-                    {% endif %}
-                    {% if site.RSS %}
-                    <a href="{{ "/feed.xml" | prepend: site.baseurl }}" aria-label="RSS Feed">
-                        <i class="fa fa-rss"></i>
-                    </a>
-                    {% endif %}
-                </div>
+            <nav class="footer-nav" aria-label="Footer navigation">
+                <a href="{{ site.baseurl }}/">Home</a>
+                <a href="{{ site.baseurl }}/tags/">Tags</a>
+                <a href="{{ site.baseurl }}/about/">About</a>
+                {% if site.RSS %}
+                <a href="{{ "/feed.xml" | prepend: site.baseurl }}">RSS</a>
+                {% endif %}
+            </nav>
+            <div class="footer-social-icons">
+                {% if site.github_username %}
+                <a target="_blank" href="https://github.com/{{ site.github_username }}" aria-label="GitHub">
+                    <i class="fa fa-github"></i>
+                </a>
+                {% endif %}
+                {% if site.RSS %}
+                <a href="{{ "/feed.xml" | prepend: site.baseurl }}" aria-label="RSS Feed">
+                    <i class="fa fa-rss"></i>
+                </a>
+                {% endif %}
             </div>
         </div>
         <div class="footer-bottom">

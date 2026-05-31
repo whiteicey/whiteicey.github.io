@@ -1616,20 +1616,19 @@ blockquote::before {
 .site-footer {
   background: var(--color-bg-card, #fff);
   border-top: 1px solid var(--color-border, #ebebeb);
-  padding: var(--space-section, 3rem) 0 2rem;
+  padding: 2.5rem 0 1.5rem;
   margin-top: var(--space-section, 3rem);
+  text-align: center;
 }
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 2rem;
-  margin-bottom: 2.5rem;
-}
-@media (max-width: 768px) {
-  .footer-grid { grid-template-columns: 1fr; text-align: center; }
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 .footer-brand h4 {
-  margin: 0 0 .5rem;
+  margin: 0 0 .25rem;
   color: var(--color-text-primary, #2d2d2d);
   font-size: 1.1rem;
 }
@@ -1637,48 +1636,45 @@ blockquote::before {
   color: var(--color-text-muted, #999);
   font-size: .88rem;
   margin: 0;
-  line-height: 1.6;
+  font-style: italic;
+  font-family: 'Source Serif 4', Georgia, serif;
 }
-.footer-section h5 {
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .25rem;
+}
+.footer-nav a {
   color: var(--color-text-secondary, #6b6b6b);
-  font-size: .78rem;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  margin: 0 0 1rem;
-  font-weight: 600;
-}
-.footer-section ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.footer-section li + li { margin-top: .5rem; }
-.footer-section a {
-  color: var(--color-text-muted, #999);
-  font-size: .88rem;
+  font-size: .85rem;
   text-decoration: none;
-  transition: color .2s;
+  padding: .35em .85em;
+  border-radius: 2em;
+  transition: all .2s ease;
 }
-.footer-section a:hover {
+.footer-nav a:hover {
   color: var(--color-brand-primary, #006d77);
+  background: rgba(0,109,119,.06);
+}
+[data-theme="dark"] .footer-nav a:hover {
+  background: rgba(77,182,172,.1);
 }
 .footer-social-icons {
   display: flex;
-  gap: .75rem;
-}
-@media (max-width: 768px) {
-  .footer-social-icons { justify-content: center; }
+  justify-content: center;
+  gap: .6rem;
 }
 .footer-social-icons a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: var(--color-bg-primary, #f3f4f6);
   color: var(--color-text-secondary, #6b6b6b);
-  font-size: 1rem;
+  font-size: .95rem;
   transition: all .2s ease;
 }
 .footer-social-icons a:hover {
