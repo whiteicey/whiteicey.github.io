@@ -231,9 +231,27 @@ whiteicey.github.io/
 
 `mathjax: true` 从 `tags:` 后面（被当作标签）移到 `tags:` 前面（正确的 front matter 字段）。
 
+### Commit 7: `1d6e759` — 修复 Jekyll 构建失败
+
+**问题**：`TECHNICAL_DOC.md` 中的 Liquid 代码示例（如 `{% if page.mathjax %}`）被 Jekyll 当作真实模板解析，导致构建报错 `'if' tag was never closed`。
+
+**修复**：在 `_config.yml` 的 `exclude` 列表中添加 `TECHNICAL_DOC.md`。
+
+### Commit 8: `eb538a4` — 页脚紧凑居中布局
+
+**问题**：三栏页脚中 "Connect" 列只有 1-2 个图标，整体显得空洞。
+
+**改动**：
+- 三栏 grid → 居中垂直布局（品牌→导航→社交→版权）
+- 导航链接改为水平胶囊按钮（悬停浅色背景）
+- 移除 `footer-grid`、`footer-section` 相关 CSS
+- 新增 `footer-content`（flex column 居中）、`footer-nav`（flex wrap 胶囊按钮）
+
 ---
 
 ## 5. 已知问题与排查经验
+
+> 以下为开发过程中实际遇到的问题，按发现顺序记录。
 
 ### 问题 1：`.min.css` / `.min.js` 与源文件不同步
 
@@ -299,7 +317,7 @@ whiteicey.github.io/
 ```yaml
 ---
 catalog: true
-mathjax: true      # ← 必须在 tags: 之前
+mathjax: true
 tags:
     - Python
 ---
@@ -314,6 +332,16 @@ tags:
 **解决**：降低 blur 值（12→6px），提高背景不透明度（0.85→0.95），让效果更微妙。
 
 **经验**：`backdrop-filter` 在不同背景上效果差异很大，需要在实际页面上调试而非凭参数猜测。
+
+### 问题 8：TECHNICAL_DOC.md 导致 Jekyll 构建失败
+
+**症状**：GitHub Pages 构建报错 `Liquid syntax error: 'if' tag was never closed`。
+
+**原因**：文档中的 Liquid 代码示例（如 `{% if page.mathjax %}`）被 Jekyll 当作真实模板标签解析。
+
+**解决**：在 `_config.yml` 的 `exclude` 列表中添加 `TECHNICAL_DOC.md`。
+
+**经验**：任何包含 Liquid 语法示例的 `.md` 文件必须加入 `exclude`，或用 `{% raw %}...{% endraw %}` 包裹代码块。
 
 ---
 
