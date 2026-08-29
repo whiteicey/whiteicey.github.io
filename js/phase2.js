@@ -572,26 +572,59 @@
         if (backdrop) backdrop.addEventListener('click', closeDrawer);
     }
 
-    // ── 9. Tags Dynamic Filtering ────────────────
+    // ── 9. Tags Dynamic Filtering & Sort by Count ────────────────
     function initTagsFilter() {
         var filterBar = document.getElementById('tag_filter_bar');
         if (!filterBar) return;
 
-        var pills = filterBar.querySelectorAll('.tag-pill');
-        var sections = document.querySelectorAll('.one-tag-list');
+        var allPill = filterBar.querySelector('.tag-pill[data-tag="all"]');
+        var otherPills = Array.prototype.slice.call(filterBar.querySelectorAll('.tag-pill:not([data-tag="all"])'));
 
-        pills.forEach(function(pill) {
+        // Sort tag pills by post count descending
+        otherPills.sort(function(a, b) {
+            var countA = parseInt(a.querySelector('.tag-pill__count') ? a.querySelector('.tag-pill__count').textContent : '0', 10);
+            var countB = parseInt(b.querySelector('.tag-pill__count') ? b.querySelector('.tag-pill__count').textContent : '0', 10);
+            if (countB !== countA) return countB - countA;
+            return a.getAttribute('data-tag').localeCompare(b.getAttribute('data-tag'));
+        });
+
+        // Re-append sorted pills to DOM
+        if (allPill) filterBar.appendChild(allPill);
+        otherPills.forEach(function(p) {
+            filterBar.appendChild(p);
+        });
+
+        // Sort tag section containers in DOM by count descending
+        var postsWrapper = document.querySelector('.tag-posts-wrapper');
+        if (postsWrapper) {
+            var sections = Array.prototype.slice.call(postsWrapper.querySelectorAll('.one-tag-list'));
+            sections.sort(function(a, b) {
+                var countA = a.querySelectorAll('.post-preview').length;
+                var countB = b.querySelectorAll('.post-preview').length;
+                if (countB !== countA) return countB - countA;
+                return (a.getAttribute('data-tag-section') || '').localeCompare(b.getAttribute('data-tag-section') || '');
+            });
+            sections.forEach(function(s) {
+                postsWrapper.appendChild(s);
+            });
+        }
+
+        // Bind interactive filter click
+        var allPills = filterBar.querySelectorAll('.tag-pill');
+        var allSections = document.querySelectorAll('.one-tag-list');
+
+        allPills.forEach(function(pill) {
             pill.addEventListener('click', function(e) {
                 var targetTag = pill.getAttribute('data-tag');
                 if (!targetTag) return;
 
-                pills.forEach(function(p) { p.classList.remove('active'); });
+                allPills.forEach(function(p) { p.classList.remove('active'); });
                 pill.classList.add('active');
 
                 if (targetTag === 'all') {
-                    sections.forEach(function(s) { s.classList.remove('is-hidden'); });
+                    allSections.forEach(function(s) { s.classList.remove('is-hidden'); });
                 } else {
-                    sections.forEach(function(s) {
+                    allSections.forEach(function(s) {
                         if (s.getAttribute('data-tag-section') === targetTag) {
                             s.classList.remove('is-hidden');
                         } else {

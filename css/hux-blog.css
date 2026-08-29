@@ -2737,32 +2737,76 @@ button:focus:not(:focus-visible) {
   pointer-events: auto;
 }
 
-/* --- Dynamic Tags Filter --- */
-.tag-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+/* --- Dynamic Tags Filter & Large Tag Pills --- */
+.tags-list {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.85rem !important;
+  margin: 1.5rem 0 3rem !important;
 }
+
+.tag-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  padding: 0.55rem 1.25rem !important;
+  border-radius: 2rem !important;
+  border: 1px solid var(--color-border, #e5e7eb) !important;
+  background: var(--color-bg-card, #ffffff) !important;
+  color: var(--color-text-primary, #2d2d2d) !important;
+  font-size: 1.05rem !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+}
+
+.tag-pill:hover {
+  transform: translateY(-2px) !important;
+  border-color: var(--color-brand-primary, #006d77) !important;
+  color: var(--color-brand-primary, #006d77) !important;
+  box-shadow: 0 4px 14px rgba(0, 109, 119, 0.15) !important;
+}
+
 .tag-pill.active {
   background: var(--color-brand-primary, #006d77) !important;
   color: #ffffff !important;
   border-color: var(--color-brand-primary, #006d77) !important;
+  box-shadow: 0 4px 14px rgba(0, 109, 119, 0.3) !important;
 }
+
+.tag-pill__count {
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  opacity: 0.8 !important;
+  background: rgba(0, 0, 0, 0.08) !important;
+  border-radius: 1rem !important;
+  padding: 0.15rem 0.6rem !important;
+  line-height: 1.2 !important;
+}
+
+[data-theme="dark"] .tag-pill__count {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
 .tag-pill.active .tag-pill__count {
-  background: rgba(255, 255, 255, 0.25);
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
 }
+
 .one-tag-list {
   transition: opacity 0.25s ease, transform 0.25s ease;
+  margin-bottom: 2.5rem;
 }
 .one-tag-list.is-hidden {
   display: none;
 }
 .tag-count {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: normal;
   color: var(--color-text-muted, #999999);
-  margin-left: 0.35rem;
+  margin-left: 0.5rem;
 }
+
