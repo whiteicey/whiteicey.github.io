@@ -49,7 +49,19 @@
     <!-- Font Awesome Icons -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <!-- Phase 3: CSS Custom Properties (Light + Dark mode toggle) -->
+    <!-- Anti-FOUC: Dark Mode Early Initialization -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+        })();
+    </script>
+
+    <!-- Phase 3: CSS Custom Properties (Light + Dark mode) -->
     <style>
         :root {
             --color-brand-primary: #006D77;
@@ -57,20 +69,22 @@
             --color-text-primary:   #2D2D2D;
             --color-text-secondary: #6B6B6B;
             --color-text-muted:     #999999;
-            --color-bg-primary:     #F3F4F6;
-            --color-bg-secondary:   #E8E6DC;
+            --color-bg-primary:     #F4F5F7;
+            --color-bg-secondary:   #EAE8E1;
             --color-bg-card:        #FFFFFF;
-            --color-border:         #EBEBEB;
-            --color-code-bg:        #F4F4F4;
+            --color-border:         #E5E7EB;
+            --color-code-bg:        #F8F9FA;
+            --color-code-text:      #1F2328;
             --color-link:           #006D77;
             --color-selection-bg:   #006D77;
             --color-selection-text: #FFFFFF;
-            --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
-            --card-shadow-hover: 0 8px 24px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.08);
+            --color-callout-bg:     rgba(0, 109, 119, 0.06);
+            --card-shadow: 0 4px 12px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.03);
+            --card-shadow-hover: 0 12px 28px rgba(0,109,119,0.12), 0 4px 8px rgba(0,0,0,0.04);
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
             --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
             --shadow-lg: 0 12px 32px rgba(0,0,0,0.12);
-            --nav-bg: rgba(255, 255, 255, 0.85);
+            --nav-bg: rgba(255, 255, 255, 0.88);
             --radius-sm: 0.5rem;
             --radius-md: 0.75rem;
             --radius-lg: 1rem;
@@ -80,23 +94,25 @@
         [data-theme="dark"] {
             --color-brand-primary: #4DB6AC;
             --color-brand-accent:  #E6C9A0;
-            --color-text-primary:   #E4E4E4;
-            --color-text-secondary: #A0A0A0;
-            --color-text-muted:     #707070;
-            --color-bg-primary:     #1A1A2E;
-            --color-bg-secondary:   #12122A;
-            --color-bg-card:        #16213E;
-            --color-border:         #2A2A4A;
-            --color-code-bg:        #0F3460;
+            --color-text-primary:   #E4E4E8;
+            --color-text-secondary: #A0A0B0;
+            --color-text-muted:     #707080;
+            --color-bg-primary:     #12121E;
+            --color-bg-secondary:   #0E0E18;
+            --color-bg-card:        #181828;
+            --color-border:         #26263A;
+            --color-code-bg:        #12121E;
+            --color-code-text:      #E4E4E8;
             --color-link:           #4DB6AC;
             --color-selection-bg:   #4DB6AC;
-            --color-selection-text: #1A1A2E;
-            --card-shadow: 0 1px 3px rgba(0,0,0,0.30), 0 1px 2px rgba(0,0,0,0.20);
-            --card-shadow-hover: 0 8px 24px rgba(0,0,0,0.45), 0 4px 8px rgba(0,0,0,0.30);
+            --color-selection-text: #12121E;
+            --color-callout-bg:     rgba(77, 182, 172, 0.08);
+            --card-shadow: 0 4px 16px rgba(0,0,0,0.35);
+            --card-shadow-hover: 0 12px 32px rgba(77,182,172,0.18), 0 4px 12px rgba(0,0,0,0.3);
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
             --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
             --shadow-lg: 0 12px 32px rgba(0,0,0,0.4);
-            --nav-bg: rgba(26, 26, 46, 0.85);
+            --nav-bg: rgba(24, 24, 40, 0.88);
         }
     </style>
 

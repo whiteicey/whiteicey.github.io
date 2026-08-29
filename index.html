@@ -7,6 +7,8 @@ description: "Farewell,good hunter.May you find your worth in the waking world."
   {% for post in paginator.posts %}
     {% if forloop.first %}
     <!-- Featured Post -->
+    {% assign f_chars = post.content | strip_html | strip_newlines | size %}
+    {% assign f_read_time = f_chars | divided_by: 400 | plus: 1 %}
     <article class="featured-post" style="background-image: url('{{ site.baseurl }}/{{ post.header-img | default: site.header-img }}')">
       <div class="featured-post__overlay"></div>
       <div class="featured-post__content">
@@ -21,7 +23,10 @@ description: "Farewell,good hunter.May you find your worth in the waking world."
         {% endif %}
         <div class="featured-post__meta">
           <time>{{ post.date | date: "%B %-d, %Y" }}</time>
-          <span class="featured-post__read-time">{{ post.content | number_of_words | divided_by:200 | plus:1 }} min read</span>
+          <span class="meta-dot">&middot;</span>
+          <span>约 {{ f_chars }} 字</span>
+          <span class="meta-dot">&middot;</span>
+          <span class="featured-post__read-time">{{ f_read_time }} 分钟阅读</span>
         </div>
       </div>
     </article>
@@ -30,6 +35,8 @@ description: "Farewell,good hunter.May you find your worth in the waking world."
       <!-- Post Grid (opens here, closes after endfor) -->
       <div class="post-grid">
       {% endif %}
+    {% assign p_chars = post.content | strip_html | strip_newlines | size %}
+    {% assign p_read_time = p_chars | divided_by: 400 | plus: 1 %}
     <article class="post-card">
       {% if post.header-img %}
       <a href="{{ post.url | prepend: site.baseurl }}" class="post-card__img-link">
@@ -51,7 +58,9 @@ description: "Farewell,good hunter.May you find your worth in the waking world."
         <footer class="post-card__meta">
           <time>{{ post.date | date: "%b %-d, %Y" }}</time>
           <span>&middot;</span>
-          <span>{{ post.content | number_of_words | divided_by:200 | plus:1 }} min</span>
+          <span>约 {{ p_chars }} 字</span>
+          <span>&middot;</span>
+          <span>{{ p_read_time }} min</span>
         </footer>
       </div>
     </article>

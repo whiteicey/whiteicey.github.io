@@ -40,10 +40,14 @@ layout: default
                     {% comment %} if page.subtitle {% endcomment %}
                     <h2 class="subheading">{{ page.subtitle }}</h2>
                     {% comment %} endif {% endcomment %}
+                    {% assign post_chars = page.content | strip_html | strip_newlines | size %}
+                    {% assign post_read_time = post_chars | divided_by: 400 | plus: 1 %}
                     <div class="meta">
                         <span>Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
                         <span class="meta-separator">&middot;</span>
-                        <span>{{ page.content | number_of_words | divided_by:200 | plus:1 }} min read</span>
+                        <span>约 {{ post_chars }} 字</span>
+                        <span class="meta-separator">&middot;</span>
+                        <span>{{ post_read_time }} min read</span>
                     </div>
                 </div>
             </div>

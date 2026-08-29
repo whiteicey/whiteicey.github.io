@@ -36,6 +36,40 @@
 <!-- Phase 2: Back to Top Button -->
 <div id="back-to-top" title="Back to top">&uarr;</div>
 
+<!-- Global Search Modal -->
+<div id="search-modal" class="search-modal" aria-hidden="true">
+    <div class="search-modal-backdrop"></div>
+    <div class="search-modal-container">
+        <div class="search-header">
+            <i class="fa fa-search search-icon"></i>
+            <input type="text" id="search-input" class="search-input" placeholder="搜索文章标题、标签或内容... (Esc 关闭)" autocomplete="off" />
+            <button id="search-close-btn" class="search-close-btn" aria-label="Close search">&times;</button>
+        </div>
+        <div id="search-results" class="search-results">
+            <div class="search-empty">输入关键词以开始搜索...</div>
+        </div>
+        <div class="search-footer">
+            <span class="search-hint">按 <kbd>↑</kbd> <kbd>↓</kbd> 导航，<kbd>Enter</kbd> 查看，<kbd>Esc</kbd> 退出</span>
+            <span class="search-powered">全站即时检索</span>
+        </div>
+    </div>
+</div>
+
+{% if page.catalog %}
+<!-- Mobile Floating TOC Toggle & Drawer -->
+<div id="mobile-toc-toggle" class="mobile-toc-toggle" title="查看文章目录">
+    <i class="fa fa-list-ul"></i>
+</div>
+<div id="mobile-toc-drawer" class="mobile-toc-drawer">
+    <div class="mobile-toc-header">
+        <h5>文章目录</h5>
+        <button id="mobile-toc-close" class="mobile-toc-close">&times;</button>
+    </div>
+    <ul class="mobile-toc-body"></ul>
+</div>
+<div id="mobile-toc-backdrop" class="mobile-toc-backdrop"></div>
+{% endif %}
+
 <!-- jQuery -->
 <script src="{{ "/js/jquery.min.js " | prepend: site.baseurl }}"></script>
 
@@ -45,7 +79,7 @@
 <!-- Custom Theme JavaScript -->
 <script src="{{ "/js/hux-blog.js" | prepend: site.baseurl }}"></script>
 
-<!-- Phase 2: Reading Enhancements -->
+<!-- Reading Enhancements, Search & Interactions -->
 <script src="{{ "/js/phase2.js" | prepend: site.baseurl }}"></script>
 
 <!-- Service Worker -->
@@ -71,27 +105,6 @@
       if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
       s.parentNode.insertBefore(o, s);
     }
-</script>
-
-<!-- jquery.tagcloud.js -->
-<script>
-    // only load tagcloud.js in tag.html
-    if($('#tag_cloud').length !== 0){
-        async('{{ "/js/jquery.tagcloud.js" | prepend: site.baseurl }}',function(){
-            $.fn.tagcloud.defaults = {
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
-        })
-    }
-</script>
-
-<!--fastClick.js -->
-<script>
-    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
-        var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
-    })
 </script>
 
 
