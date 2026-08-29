@@ -2139,22 +2139,81 @@ button:focus:not(:focus-visible) {
    Phase 6: Search Modal, Audio Player, macOS Code & Modern Enhancements
    ========================================================================== */
 
-/* --- Navbar Search & Theme Toggle Buttons --- */
+/* --- Navbar Search & Theme Toggle Buttons & Alignment --- */
+@media only screen and (min-width: 768px) {
+  .navbar-custom .navbar-collapse {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+  }
+  .navbar-custom .navbar-nav {
+    display: flex !important;
+    align-items: center !important;
+    float: none !important;
+    margin: 0 !important;
+    height: 60px !important;
+  }
+  .navbar-custom .navbar-nav > li {
+    display: flex !important;
+    align-items: center !important;
+    float: none !important;
+    height: 100% !important;
+  }
+  .navbar-custom .navbar-nav > li > a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100% !important;
+    padding: 0 16px !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
+    vertical-align: middle !important;
+  }
+  .navbar-custom .navbar-nav > li > a.nav-search-btn {
+    font-size: 15px !important;
+    padding: 0 12px !important;
+  }
+  .navbar-custom .navbar-nav > li > a.nav-search-btn i {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+  }
+  .navbar-custom .navbar-nav > li > a.theme-toggle {
+    font-size: 16px !important;
+    padding: 0 12px !important;
+  }
+  .navbar-custom .navbar-nav > li > a.theme-toggle .theme-icon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+  }
+  .navbar-custom .nav li a.nav-search-btn::after,
+  .navbar-custom .nav li a.theme-toggle::after {
+    display: none !important;
+  }
+  .navbar-custom .nav li a::after {
+    bottom: 14px !important;
+    left: 14px !important;
+    right: 14px !important;
+  }
+}
+
 .nav-search-btn,
 .theme-toggle {
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
-  padding: 18px 16px !important;
-  font-size: 15px;
   color: var(--color-text-secondary, #6b6b6b);
   transition: color 0.2s ease, transform 0.2s ease;
 }
 .nav-search-btn:hover,
 .theme-toggle:hover {
   color: var(--color-brand-primary, #006d77) !important;
-  transform: scale(1.1);
+  transform: scale(1.15);
 }
 .theme-icon {
   display: inline-block;
