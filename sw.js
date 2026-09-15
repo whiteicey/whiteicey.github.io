@@ -6,8 +6,8 @@
  * Register service worker.
  * ========================================================== */
 
-const PRECACHE = 'precache-v1';
-const RUNTIME = 'runtime';
+const PRECACHE = 'precache-v2';
+const RUNTIME = 'runtime-v2';
 const HOSTNAME_WHITELIST = [
   self.location.hostname,
   "whiteicey.github.io",
@@ -93,7 +93,6 @@ self.addEventListener('install', e => {
  *  waitUntil(): activating ====> activated
  */
 self.addEventListener('activate',  event => {
-  console.log('service worker activated.')
   event.waitUntil(self.clients.claim());
 });
 
@@ -106,7 +105,6 @@ self.addEventListener('activate',  event => {
  */
 self.addEventListener('fetch', event => {
   // logs for debugging
-  console.log(`fetch ${event.request.url}`)
   //console.log(` - type: ${event.request.type}; destination: ${event.request.destination}`)
   //console.log(` - mode: ${event.request.mode}, accept: ${event.request.headers.get('accept')}`)
 

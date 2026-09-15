@@ -4,7 +4,7 @@ title:      JSON转模型 For YYModel
 subtitle:   使用 YYModel库 快速完成 JSON 转模型
 date:       2016-10-26
 author:     whiteicey
-header-img: img/post-bg-ios9-web.jpg
+header-img: img/optimized/hero/post-bg-ios9-web.webp
 catalog: true
 tags:
     - iOS
@@ -23,17 +23,17 @@ tags:
 然后点击`Window`->`ESJsonFormat`->`Input JSON Window`调出窗口
 
 
-![](http://ww1.sinaimg.cn/large/006y8lVagw1f95tr49ed7j30no0csdir.jpg)
+![](http://ww1.sinaimg.cn/large/006y8lVagw1f95tr49ed7j30no0csdir.jpg){: loading="lazy" decoding="async"}
 
 在窗口中输入你要解析的JSON文本，如下图：
 
-![](http://ww4.sinaimg.cn/large/006y8lVagw1f97s13l4b9j30jv0e8dhp.jpg)
+![](http://ww4.sinaimg.cn/large/006y8lVagw1f97s13l4b9j30jv0e8dhp.jpg){: loading="lazy" decoding="async"}
 
 按`Enter`继续，然后神奇的一幕发生了
 
-![](http://ww3.sinaimg.cn/large/006y8lVagw1f97s46k95tj30k30dydj9.jpg)
+![](http://ww3.sinaimg.cn/large/006y8lVagw1f97s46k95tj30k30dydj9.jpg){: loading="lazy" decoding="async"}
 
-![](http://ww1.sinaimg.cn/large/006y8lVagw1f97s6yp9hmj30iw0b840m.jpg)
+![](http://ww1.sinaimg.cn/large/006y8lVagw1f97s6yp9hmj30iw0b840m.jpg){: loading="lazy" decoding="async"}
 
 看到在.h中 所有的属性自动为你填上，而且帮你选好了类型
 

@@ -4,7 +4,7 @@ title:      Objective-C Runtime 详解
 subtitle:   Runtime 详解
 date:       2017-02-04
 author:     whiteicey
-header-img: img/post-bg-ios9-web.jpg
+header-img: img/optimized/hero/post-bg-ios9-web.webp
 catalog: true
 tags:
     - Obj-C
@@ -195,7 +195,7 @@ struct objc_method_list {
 
 不知道你是否注意到了`objc_class`中也有一个`isa`对象，这是因为一个 ObjC 类本身同时也是一个对象，为了处理类和对象的关系，runtime 库创建了一种叫做元类 (Meta Class) 的东西，类对象所属类型就叫做元类，它用来表述类对象本身所具备的元数据。类方法就定义于此处，因为这些方法可以理解成类对象的实例方法。每个类仅有一个类对象，而每个类对象仅有一个与之相关的元类。当你发出一个类似`[NSObject alloc]`的消息时，你事实上是把这个消息发给了一个类对象 (Class Object) ，这个类对象必须是一个元类的实例，而这个元类同时也是一个根元类 (root meta class) 的实例。所有的元类最终都指向根元类为其超类。所有的元类的方法列表都有能够响应消息的类方法。所以当 `[NSObject alloc]` 这条消息发给类对象的时候，`objc_msgSend()`会去它的元类里面去查找能够响应消息的方法，如果找到了，然后对这个类对象执行方法调用。
 
-![](http://7ni3rk.com1.z0.glb.clouddn.com/Runtime/class-diagram.jpg)
+![](http://7ni3rk.com1.z0.glb.clouddn.com/Runtime/class-diagram.jpg){: loading="lazy" decoding="async"}
 
 上图实线是 `super_class` 指针，虚线是`isa`指针。 有趣的是根元类的超类是`NSObjec`t，而`isa`指向了自己，而`NSObject`的超类为`nil`，也就是它没有超类
 
@@ -516,7 +516,7 @@ ivarType:q
 6. 如果还找不到就要开始进入动态方法解析了，后面会提到。
 
 PS:这里说的分发表其实就是 `Class` 中的方法列表，它将方法选择器和方法实现地址联系起来。
-![](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Art/messaging1.gif)
+![](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Art/messaging1.gif){: loading="lazy" decoding="async"}
 
 其实编译器会根据情况在`objc_msgSend`, `objc_msgSend_stret`, `objc_msgSendSuper`, 或 `objc_msgSendSuper_stret`四个方法中选择一个来调用。如果消息是传递给超类，那么会调用名字带有”Super”的函数；如果消息返回值是数据结构而不是简单值时，那么会调用名字带有`”stret”`的函数。排列组合正好四个方法
 
@@ -633,7 +633,7 @@ PS：动态方法解析会在消息转发机制浸入前执行。如果 `respond
 #### 转发和多继承
 转发和继承相似，可以用于为Objc编程添加一些多继承的效果。就像下图那样，一个对象把消息转发出去，就好似它把另一个对象中的方法借过来或是“继承”过来一样。
 
-![](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Art/forwarding.gif)
+![](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Art/forwarding.gif){: loading="lazy" decoding="async"}
 
 这使得不同继承体系分支下的两个类可以“继承”对方的方法，在上图中 `Warrior` 和 `Diplomat` 没有继承关系，但是 `Warrior` 将`negotiate` 消息转发给了 `Diplomat` 后，就好似 `Diplomat` 是 `Warrior` 的超类一样。
 消息转发弥补了 Objc 不支持多继承的性质，也避免了因为多继承导致单个类变得臃肿复杂。它将问题分解得很细，只针对想要借鉴的方法才转发，而且转发机制是透明的

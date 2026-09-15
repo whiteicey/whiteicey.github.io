@@ -134,20 +134,25 @@
     display: none;
   }
 }
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   /* Hux learn from
      *     TypeIsBeautiful,
      *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
      */
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
-  line-height: 1.7;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif);
+  line-height: var(--leading-body, 1.75);
   font-size: 16px;
   color: var(--color-text-primary, #2d2d2d);
   background: var(--color-bg-primary, #f3f4f6);
   overflow-x: hidden;
 }
 p {
-  margin: 32px 0;
+  margin: var(--space-xl, 2rem) 0;
+  text-wrap: pretty;
 }
 h1,
 h2,
@@ -159,10 +164,10 @@ h6 {
      *     TypeIsBeautiful,
      *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
      */
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
-  line-height: 1.7;
-  line-height: 1.1;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif);
+  line-height: var(--leading-heading, 1.25);
   font-weight: bold;
+  letter-spacing: -0.01em;
 }
 h4 {
   font-size: 21px;
@@ -250,7 +255,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, 'Courier New', monospace;
+  font-family: var(--font-mono, 'JetBrains Mono', Consolas, monospace);
 }
 pre code {
   display: block;
@@ -429,7 +434,7 @@ pre,
      *     TypeIsBeautiful,
      *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
      */
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif);
   line-height: 1.7;
 }
 .navbar-custom .navbar-brand {
@@ -581,8 +586,8 @@ pre,
      *     TypeIsBeautiful,
      *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
      */
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
-  line-height: 1.7;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif);
+  line-height: var(--leading-body, 1.75);
   font-size: 16px;
   line-height: 1.5;
   display: block;
@@ -615,7 +620,7 @@ pre,
      *     TypeIsBeautiful,
      *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
      */
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif);
   line-height: 1.7;
   font-size: 17px;
   line-height: 1.4;
@@ -825,7 +830,7 @@ form .row:first-child .floating-label-form-group {
      *     TypeIsBeautiful,
      *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
      */
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif);
   line-height: 1.7;
   text-transform: uppercase;
   font-size: 14px;
@@ -854,7 +859,7 @@ form .row:first-child .floating-label-form-group {
      *     TypeIsBeautiful,
      *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
      */
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif);
   line-height: 1.7;
   text-transform: uppercase;
   font-size: 12px;
@@ -1014,7 +1019,7 @@ img::-moz-selection {
      *     TypeIsBeautiful,
      *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
      */
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif);
   line-height: 1.7;
 }
 .one-tag-list .post-preview {
@@ -1100,42 +1105,7 @@ img::-moz-selection {
 .comment {
   margin-top: 20px;
 }
-.comment #ds-thread #ds-reset a.ds-like-thread-button {
-  border: 1px solid #ddd;
-  border-radius: 0px;
-  background: white;
-  box-shadow: none;
-  text-shadow: none;
-}
-.comment #ds-thread #ds-reset li.ds-tab a.ds-current {
-  border: 1px solid #ddd;
-  border-radius: 0px;
-  background: white;
-  box-shadow: none;
-  text-shadow: none;
-}
-.comment #ds-thread #ds-reset .ds-textarea-wrapper {
-  background: none;
-}
-.comment #ds-thread #ds-reset .ds-gradient-bg {
-  background: none;
-}
-.comment #ds-thread #ds-reset .ds-post-options {
-  border-bottom: 1px solid #ccc;
-}
-.comment #ds-thread #ds-reset .ds-post-button {
-  border-bottom: 1px solid #ccc;
-}
-.comment #ds-thread #ds-reset .ds-post-button {
-  background: white;
-  box-shadow: none;
-}
-.comment #ds-thread #ds-reset .ds-post-button:hover {
-  background: #eeeeee;
-}
-#ds-smilies-tooltip ul.ds-smilies-tabs li a {
-  background: white !important;
-}
+
 .theme-toggle {
   cursor: pointer;
   font-size: 20px;
@@ -1357,7 +1327,7 @@ img::-moz-selection {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 2rem 2.5rem;
+  padding: var(--space-xl, 2rem) var(--space-2xl, 3rem);
   color: #fff;
   z-index: 1;
 }
@@ -1374,9 +1344,9 @@ img::-moz-selection {
   margin-bottom: .75rem;
 }
 .featured-post__title {
-  margin: 0 0 .5rem;
+  margin: 0 0 var(--space-sm, .5rem);
   font-size: clamp(1.5rem, 4vw, 2.5rem);
-  line-height: 1.25;
+  line-height: var(--leading-heading, 1.25);
   font-weight: 700;
 }
 .featured-post__title a {
@@ -1388,17 +1358,17 @@ img::-moz-selection {
   color: var(--color-brand-accent, #E6C9A0) !important;
 }
 .featured-post__subtitle {
-  margin: 0 0 .75rem;
+  margin: 0 0 var(--space-md, .75rem);
   font-size: 1rem;
   opacity: .85;
   max-width: 60ch;
-  line-height: 1.5;
+  line-height: var(--leading-body, 1.5);
 }
 .featured-post__meta {
   display: flex;
-  gap: 1.25rem;
+  gap: var(--space-lg, 1.25rem);
   font-size: .82rem;
-  opacity: .7;
+  opacity: .75;
 }
 @media (max-width: 767px) {
   .featured-post {
@@ -1414,11 +1384,11 @@ img::-moz-selection {
 .post-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-  gap: 1.75rem;
-  margin-bottom: 2.5rem;
+  gap: var(--space-lg, 1.5rem);
+  margin-bottom: var(--space-2xl, 3rem);
 }
 .post-card {
-  border-radius: var(--radius-md, .75rem);
+  border-radius: var(--radius-lg, 1.25rem);
   overflow: hidden;
   background: var(--color-bg-card, #fff);
   border: 1px solid var(--color-border, rgba(0,0,0,.08));
@@ -1443,15 +1413,18 @@ img::-moz-selection {
   display: block;
 }
 .post-card__img {
+  display: block;
+  width: 100%;
   aspect-ratio: 16/9;
-  background: center/cover no-repeat var(--color-bg-secondary, #e8e6dc);
-  transition: transform .4s cubic-bezier(.4,0,.2,1);
+  object-fit: cover;
+  background: var(--color-bg-secondary, #e8e6dc);
+  transition: transform var(--transition-medium, .4s cubic-bezier(.4,0,.2,1));
 }
 .post-card:hover .post-card__img {
   transform: scale(1.04);
 }
 .post-card__body {
-  padding: 1.25rem 1.5rem 1.5rem;
+  padding: var(--space-lg, 1.25rem) var(--space-xl, 1.5rem) var(--space-xl, 1.5rem);
 }
 .post-card__tag {
   display: inline-block;
@@ -1537,11 +1510,14 @@ img::-moz-selection {
 }
 
 /* --- Typography: Vertical Rhythm --- */
-.post-content > * + * { margin-block-start: 1.5em; }
-.post-content > h2 + * { margin-block-start: .75em; }
-.post-content > * + h2 { margin-block-start: 2.5em; }
-.post-content > * + h3 { margin-block-start: 2em; }
-.post-content p { line-height: 1.85; }
+.post-container > * + * { margin-block-start: 1.5em; }
+.post-container > h2 + * { margin-block-start: .75em; }
+.post-container > * + h2 { margin-block-start: 2.5em; }
+.post-container > * + h3 { margin-block-start: 2em; }
+.post-container p {
+  line-height: var(--leading-reading, 1.85);
+  overflow-wrap: anywhere;
+}
 
 /* --- Blockquote Decorative Quote --- */
 blockquote::before {
@@ -1557,7 +1533,7 @@ blockquote::before {
 }
 
 /* --- Table Enhancement --- */
-.post-content table {
+.post-container table {
   width: 100%;
   border-collapse: collapse;
   border-radius: var(--radius-sm, .5rem);
@@ -1566,7 +1542,7 @@ blockquote::before {
   margin: 2rem 0;
   box-shadow: var(--shadow-sm);
 }
-.post-content th {
+.post-container th {
   background: var(--color-brand-primary, #006d77);
   color: #fff;
   text-align: left;
@@ -1576,32 +1552,32 @@ blockquote::before {
   letter-spacing: .04em;
   font-weight: 600;
 }
-.post-content td {
+.post-container td {
   padding: .75rem 1rem;
   border-top: 1px solid var(--color-border, #ebebeb);
 }
-.post-content tr:nth-child(even) {
+.post-container tr:nth-child(even) {
   background: rgba(0,109,119,.04);
 }
-[data-theme="dark"] .post-content tr:nth-child(even) {
+[data-theme="dark"] .post-container tr:nth-child(even) {
   background: rgba(255,255,255,.03);
 }
 
 /* --- Inline Code Enhancement --- */
-.post-content :not(pre) > code {
+.post-container :not(pre) > code {
   background: rgba(0,109,119,.08);
   padding: .15em .4em;
   border-radius: .25rem;
   font-size: .88em;
   color: var(--color-brand-primary, #006d77);
 }
-[data-theme="dark"] .post-content :not(pre) > code {
+[data-theme="dark"] .post-container :not(pre) > code {
   background: rgba(212,165,116,.12);
   color: var(--color-brand-accent, #E6C9A0);
 }
 
 /* --- Code Block Enhancement --- */
-.post-content pre {
+.post-container pre {
   border-radius: var(--radius-md, .75rem);
   border: 1px solid var(--color-border, #ebebeb);
   box-shadow: var(--shadow-sm);
@@ -1616,7 +1592,7 @@ blockquote::before {
 .site-footer {
   background: var(--color-bg-card, #fff);
   border-top: 1px solid var(--color-border, #ebebeb);
-  padding: 2.5rem 0 1.5rem;
+  padding: var(--space-2xl, 3rem) 0 var(--space-lg, 1.5rem);
   margin-top: var(--space-section, 3rem);
   text-align: center;
 }
@@ -1637,7 +1613,7 @@ blockquote::before {
   font-size: .88rem;
   margin: 0;
   font-style: italic;
-  font-family: 'Source Serif 4', Georgia, serif;
+  font-family: var(--font-serif, 'Source Serif 4', Georgia, serif);
 }
 .footer-nav {
   display: flex;
@@ -1690,47 +1666,6 @@ blockquote::before {
   text-align: center;
 }
 
-/* --- Tag Pills --- */
-.tags-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .5rem;
-  justify-content: center;
-  padding: 1.5rem 0;
-}
-.tag-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: .35em;
-  padding: .4em 1em;
-  border-radius: 2em;
-  border: 1px solid var(--color-border, #ebebeb);
-  background: var(--color-bg-card, #fff);
-  color: var(--color-text-primary, #2d2d2d);
-  font-size: .85rem;
-  text-decoration: none;
-  transition: all .2s ease;
-  cursor: pointer;
-}
-.tag-pill:hover, .tag-pill.active {
-  background: var(--color-brand-primary, #006d77);
-  color: #fff;
-  border-color: var(--color-brand-primary, #006d77);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-}
-.tag-pill__count {
-  font-size: .7rem;
-  opacity: .6;
-  background: rgba(0,0,0,.08);
-  border-radius: 1em;
-  padding: .1em .5em;
-}
-.tag-pill:hover .tag-pill__count,
-.tag-pill.active .tag-pill__count {
-  background: rgba(255,255,255,.2);
-}
-
 /* --- Side Catalog Enhancement --- */
 .side-catalog {
   border-radius: var(--radius-md, .75rem);
@@ -1774,6 +1709,7 @@ blockquote::before {
 
 /* --- Reduced Motion Support --- */
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   .post-card,
   .post-card.revealed,
   .featured-post__title a,
@@ -1804,15 +1740,15 @@ noscript + .post-grid .post-card,
 .post-heading h1,
 .site-heading h1,
 .featured-post__title {
-  font-family: 'Source Serif 4', Georgia, serif;
+  font-family: var(--font-serif, 'Source Serif 4', Georgia, serif);
 }
 .post-container blockquote p {
-  font-family: 'Source Serif 4', Georgia, serif;
+  font-family: var(--font-serif, 'Source Serif 4', Georgia, serif);
 }
 .post-meta,
 .post-card__meta,
 .featured-post__meta {
-  font-family: 'Source Serif 4', Georgia, serif;
+  font-family: var(--font-serif, 'Source Serif 4', Georgia, serif);
   font-style: italic;
 }
 .navbar-custom,
@@ -1823,7 +1759,7 @@ noscript + .post-grid .post-card,
 
 /* --- Post Heading Accent Decoration --- */
 .post-container h2 {
-  font-family: 'Source Serif 4', Georgia, serif;
+  font-family: var(--font-serif, 'Source Serif 4', Georgia, serif);
   font-size: 1.65rem;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -1864,7 +1800,7 @@ noscript + .post-grid .post-card,
 /* Image Caption */
 .post-container img + em,
 .post-container small.img-hint {
-  font-family: 'Source Serif 4', Georgia, serif;
+  font-family: var(--font-serif, 'Source Serif 4', Georgia, serif);
   font-style: italic;
   font-size: 0.85rem;
   color: var(--color-text-muted, #999);
@@ -1910,7 +1846,7 @@ noscript + .post-grid .post-card,
   margin: 0 2px;
 }
 .about-quote {
-  font-family: 'Source Serif 4', Georgia, "Songti SC", serif !important;
+  font-family: var(--font-serif, 'Source Serif 4', Georgia, serif) !important;
   font-size: 1.35rem !important;
   line-height: 1.8 !important;
   font-style: italic !important;
@@ -2049,7 +1985,7 @@ noscript + .post-grid .post-card,
 /* --- 404 Page Styling --- */
 .error-page .error-code {
   display: block;
-  font-family: 'Source Serif 4', Georgia, serif;
+  font-family: var(--font-serif, 'Source Serif 4', Georgia, serif);
   font-size: clamp(6rem, 20vw, 12rem);
   font-weight: 700;
   line-height: 1;

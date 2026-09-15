@@ -36,4 +36,9 @@ _site
 node_modules/
 .sass-cache/
 .jekyll-cache/
-.jekyll-metadata
+.jekyll-metadata
+# Local frontend tooling artifacts
+tools/_*
+tools/image_refs.json
+tools/visual-check/
+tools/__pycache__/

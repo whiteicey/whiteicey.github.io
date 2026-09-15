@@ -4,7 +4,7 @@ title:        Finetune-Bert 微调策略
 subtitle:     Advanced Techniques for Fine-tuning Transformers
 date:         2023-3-19
 author:       whiteicey
-header-img:   img/post-bg-finetunebert.jpg
+header-img:   img/optimized/hero/post-bg-finetunebert.webp
 catalog:      true
 tags:
     - Python
@@ -51,7 +51,7 @@ tags:
 
 在我们进入实现之前，让我们快速回顾一下我们为Transformers所做的基本微调[Transformers, can you rate the complexity of reading passages?](https://towardsdatascience.com/transformers-can-you-rate-the-complexity-of-reading-passages-17c76da3403)在一个由一个嵌入层和12个隐藏层组成的`roberta-base`模型上，我们使用了一个线性调度器，并在优化器中设置了一个初始学习率为1e-6（即0.000001）。如下图所示，调度器创建了一个学习率的时间表，在训练步骤中，该学习率从1e-6线性减少到零。
 
-&emsp;&emsp;&emsp;&emsp;&emsp;![学习率下降](/img/finetune-fig1.jpg "Linear schedule with an initial learning rate of 1e-6.")
+&emsp;&emsp;&emsp;&emsp;&emsp;![学习率下降](/img/optimized/body/finetune-fig1.webp "Linear schedule with an initial learning rate of 1e-6."){: loading="lazy" decoding="async"}
 
 实现分层学习率衰减（或区分微调）有两种可能的方法。
 
@@ -121,7 +121,7 @@ def roberta_base_AdamW_LLRD(model):
 
 下面是一个具有分层学习率衰减的线性调度器的示例：
 
-&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/finetune-fig2.jpg "Linear schedule with layer-wise learning rate decay.")
+&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/optimized/body/finetune-fig2.webp "Linear schedule with layer-wise learning rate decay."){: loading="lazy" decoding="async"}
 
 第二种实现分层学习率衰减（或区分微调）的方法是将层分组到不同的集合中，并对每个集合应用不同的学习率。我们将其称为分组LLRD。
 
@@ -179,17 +179,17 @@ def roberta_base_AdamW_grouped_LLRD(model):
 
 下面是一个具有分组`LLRD`的线性调度器的示例：
 
-&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/finetune-fig3.jpg "Linear schedule with grouped LLRD.")
+&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/optimized/body/finetune-fig3.webp "Linear schedule with grouped LLRD."){: loading="lazy" decoding="async"}
 
 ### 2. Warm-up Steps
 
 对于我们使用的线性调度程序，我们可以应用热身步骤。例如，应用50个热身步骤意味着学习率将在前50个步骤（热身阶段）期间从0线性增加到优化器中设置的初始学习率。之后，学习率将开始线性降低到0。
 
-&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/finetune-fig4.jpg "Linear schedule with LLRD and 50 warm-up steps.")
+&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/optimized/body/finetune-fig4.webp "Linear schedule with LLRD and 50 warm-up steps."){: loading="lazy" decoding="async"}
 
 下图显示了第50步的相应层的学习率。这些是我们为优化器设置的学习率。
 
-&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/finetune-fig5.jpg "Hover text reflects the learning rates at step-50. ")
+&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/optimized/body/finetune-fig5.webp "Hover text reflects the learning rates at step-50. "){: loading="lazy" decoding="async"}
 
 要应用热身步骤，请在`get_scheduler`函数上输入`num_warmup_steps`参数。
 
@@ -371,11 +371,11 @@ def train_fn(data_loader, model, optimizer, ...., swa_step=False):
 
 SWA 的好处在于我们可以将其与任何优化器和大多数调度程序一起使用。在我们的线性调度中，使用 `LLRD`，我们可以从下图中看到，在第 3 个 epoch 切换到 SWA 学习率调度后，学习率保持在 `2e-6` 的常数。
 
-&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/finetune-fig6.jpg " Linear schedule with LLRD, 50 warm-up steps, and SWA. ")
+&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/optimized/body/finetune-fig6.webp " Linear schedule with LLRD, 50 warm-up steps, and SWA. "){: loading="lazy" decoding="async"}
 
 下面是在具有 50 个热身步骤的分组 `LLRD` 上实现 SWA 后线性调度的样子：
 
-&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/finetune-fig7.jpg " Linear schedule with grouped LLRD, 50 warm-up steps, and SWA.")
+&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/optimized/body/finetune-fig7.webp " Linear schedule with grouped LLRD, 50 warm-up steps, and SWA."){: loading="lazy" decoding="async"}
 
 你可以在这个 [PyTorch 博客](https://pytorch.org/blog/pytorch-1.6-now-includes-stochastic-weight-averaging/)和这个 [PyTorch 文档](https://pytorch.org/docs/stable/optim.html#stochastic-weight-averaging)中阅读更多关于 SWA 的细节。
 
@@ -385,11 +385,11 @@ SWA 的好处在于我们可以将其与任何优化器和大多数调度程序�
 
 我们将创建一个新函数`train_and_validate`。对于每个时期，`run_training`将调用此新函数，而不是分别调用`train_fn`和`validate_fn`。
 
-&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/finetune-fig8.jpg )
+&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/optimized/body/finetune-fig8.webp ){: loading="lazy" decoding="async"}
 
 在`train_and_validate`内，对于每个批次的训练数据，它将运行模型训练代码。但是，对于验证，`validate_fn`仅会在每个x批次的训练数据上调用一次。因此，如果`x`为10，如果我们有50个训练数据批次，则每个时期将进行5次验证。
 
-&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/finetune-fig9.jpg)
+&emsp;&emsp;&emsp;&emsp;&emsp;![](/img/optimized/body/finetune-fig9.webp){: loading="lazy" decoding="async"}
 
 ## Results
 

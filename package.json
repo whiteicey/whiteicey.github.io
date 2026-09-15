@@ -1,25 +1,20 @@
 {
-    "name": "autumn-blog",
-    "title": "秋的博客 | AUTUMN Blog",
-    "author": "whiteicey",
-    "version": "2.0.0",
-    "homepage": "https://whiteicey.github.io",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/whiteicey/whiteicey.github.io"
-    },
-    "devDependencies": {
-        "gray-matter": "^4.0.3",
-        "grunt": ">=1.3.0",
-        "grunt-banner": "~0.2.3",
-        "grunt-contrib-less": "~0.11.4",
-        "grunt-contrib-uglify": "~0.5.1",
-        "grunt-contrib-watch": "~0.6.1",
-        "liquidjs": "^10.29.0",
-        "marked": "^18.0.11"
-    },
-    "scripts": {
-        "preview": "cd _site && python3 -m http.server 8020",
-        "watch": "grunt watch & npm run preview & jekyll serve -w"
-    }
+  "name": "autumn-blog",
+  "title": "秋的博客 | AUTUMN Blog",
+  "author": "whiteicey",
+  "version": "2.1.0",
+  "private": true,
+  "homepage": "https://whiteicey.github.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whiteicey/whiteicey.github.io"
+  },
+  "scripts": {
+    "build": "jekyll build",
+    "serve": "jekyll serve --livereload",
+    "images": "python tools/optimize_images.py --force",
+    "rewrite-images": "python tools/rewrite_image_refs.py",
+    "audit-images": "python tools/audit_image_refs.py",
+    "check": "jekyll build && python tools/visual_check.py"
+  }
 }

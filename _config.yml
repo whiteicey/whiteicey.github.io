@@ -1,7 +1,7 @@
 # Site settings
 title: MY Blog
 SEOTitle: 秋的博客 | AUTUMN Blog
-header-img: img/post-bg-desk.jpg
+header-img: img/optimized/hero/post-bg-desk.webp
 email: 1269736732@qq.com
 description: "Farewell,good hunter.May you find your worth in the waking world."
 keyword: "Blog, 秋的博客, C/C++, Python，Rust, 博客 "
@@ -12,7 +12,7 @@ github_repo: "https://github.com/whiteicey/whiteicey.github.io.git" # you code r
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "Per aspera ad astra."
-sidebar-avatar: /img/about-test.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/optimized/body/about-test.webp      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
@@ -39,7 +39,7 @@ anchorjs: true                          # if you want to customize anchor. check
 
 # Gems
 # from PR#40, to support local preview for Jekyll 3.0
-gems: [jekyll-paginate]
+plugins: [jekyll-paginate]
 
 
 
@@ -86,7 +86,7 @@ featured-condition-size: 1              # 相同标签数量大于这个数，�
 
 
 # Progressive Web Apps
-chrome-tab-theme-color: "#000000"
+chrome-tab-theme-color: "#006D77"
 service-worker: true
 
 

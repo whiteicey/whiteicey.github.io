@@ -4,7 +4,7 @@ title:      Objective-C Runtime 基本使用
 subtitle:   Runtime 使用案例
 date:       2017-02-04
 author:     whiteicey
-header-img: img/post-bg-ios9-web.jpg
+header-img: img/optimized/hero/post-bg-ios9-web.webp
 catalog: true
 tags:
     - Obj-C
@@ -347,7 +347,7 @@ ivarType:@
 ```
 这里会报编译错误，因为分类中使用 `@property` 声明属性也不会生成成员变量 _name，并且手动声明也不行
 
-![](http://ww1.sinaimg.cn/large/7853084cgw1f9zsknx42yj20fw033gm0.jpg)
+![](http://ww1.sinaimg.cn/large/7853084cgw1f9zsknx42yj20fw033gm0.jpg){: loading="lazy" decoding="async"}
 
 编译错误，提示实例变量无法添加到分类中，用正常的方法确实无法在分类中添加属性。
 
@@ -666,13 +666,13 @@ performSelector:@selector(resolveThisMethodDynamically)];
 
 这个这个段代码可能出现编译错误：
 
-![](http://ww3.sinaimg.cn/large/7853084cgw1fa3b5fbvsqj20k001fjrn.jpg)
+![](http://ww3.sinaimg.cn/large/7853084cgw1fa3b5fbvsqj20k001fjrn.jpg){: loading="lazy" decoding="async"}
 
 解决办法很简单：
 
 将项目 Project -> Build Settings -> Enable strct checking of objc_msgSend Calls 设置为 **NO** 即可
 
-![](http://ww1.sinaimg.cn/large/7853084cgw1fa3b6mm9h7j20oh0aj0v8.jpg)
+![](http://ww1.sinaimg.cn/large/7853084cgw1fa3b6mm9h7j20oh0aj0v8.jpg){: loading="lazy" decoding="async"}
 
 接下来我们创建一个模型类`Student`
 

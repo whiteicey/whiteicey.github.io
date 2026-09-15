@@ -1,11 +1,79 @@
 # whiteicey.github.io — 技术架构与更新文档
 
-> 最后更新：2026-05-31 | 维护者参考文档
+> 最后更新：2026-09-15 | 维护者参考文档
+
+---
+
+
+## 0. 2026-09-15 Plan A 前端优化
+
+本节描述当前生产状态；下文历史架构记录保留作回溯参考。
+
+### 图片资源
+
+- 原图规模：280 个文件 / 123.4 MB。
+- 当前部署规模：261 个文件 / 25.3 MB，约减少 79.5%。
+- 生产图片位于 `img/optimized/`：
+  - `hero/`：最大 1920px，WebP q90，用于页面与文章头图。
+  - `card/`：最大 800px，WebP q88，用于首页卡片缩略图。
+  - `body/`：最大 2048px，WebP q88，用于正文图片，保留灯箱放大后的可读性。
+- 全站本地图片引用已改为优化后的 WebP。
+- 正文图片添加 `loading="lazy"` 与 `decoding="async"`。
+- 首页卡片从 CSS background 改为原生 `<img loading="lazy">`。
+- 页面 hero 增加 `<link rel="preload" as="image" fetchpriority="high">`。
+- 原始 JPG/PNG 已备份在仓库外：`C:\Users\autumn\Desktop\blog\img-originals-backup-2026-09-15\img`。
+
+### CSS 与视觉
+
+- 补充间距、字体、行高、圆角、过渡等 Design Tokens。
+- 修复无效 `.post-content` 选择器，改为实际存在的 `.post-container`。
+- 删除废弃 Duoshuo 样式与被后续规则覆盖的早期 tag pill 样式。
+- 正文阅读行高与中文排版间距更稳定，长 URL 自动换行。
+- 卡片圆角提升为 `--radius-lg`，hover 与图片缩放动效统一。
+- 暗色模式弱化文字对比度提高。
+
+### JavaScript
+
+- 移除 jQuery、Bootstrap JS、旧 min 产物与未使用脚本。
+- `js/hux-blog.js` 重写为原生 JavaScript，保留表格响应式、视频嵌入约束、导航滚动行为。
+- 侧边目录生成与滚动跟踪改为原生 JavaScript，不再依赖 `jquery.nav.js`。
+- 当前运行时仅加载 `hux-blog.js` 与 `phase2.js`。
+
+### PWA 与构建
+
+- Service Worker 缓存版本升级为 `precache-v2` / `runtime-v2`。
+- PWA theme color 改为品牌青色 `#006D77`。
+- `_config.yml` 使用 `plugins` 替代过时 `gems`，Jekyll 构建警告已清零。
+- 移除过时 LESS/Grunt 构建链，避免旧样式覆盖新 CSS。
+
+### 验证结果
+
+`tools/visual_check.py` 在 Chrome 中检查了首页、文章页、About、Tags、404 的亮色/暗色与移动端视口：
+
+- 11 个页面组合全部通过。
+- Console error：0。
+- Page error：0。
+- Failed request：0。
+- Broken image：0。
+- 横向溢出/卡片未显示等布局问题：0。
+
+### 维护命令
+
+```powershell
+npm run build       # Jekyll 构建
+npm run check       # 构建 + Playwright 视觉/布局检查
+npm run images      # 重新生成 WebP 派生图
+npm run rewrite-images
+npm run audit-images
+python tools/prune_images.py            # 干跑
+python tools/prune_images.py --apply    # 清理未引用图片
+```
 
 ---
 
 ## 目录
 
+0. [2026-09-15 Plan A 前端优化](#0-2026-09-15-plan-a-前端优化)
 1. [技术架构概览](#1-技术架构概览)
 2. [文件结构](#2-文件结构)
 3. [设计系统](#3-设计系统)
