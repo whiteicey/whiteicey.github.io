@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * BY Blog v1.7.0 (http://qiubaiying.github.io)
  * Copyright 2026 BY <qiubaiyingios@163.com>
  */
@@ -437,11 +437,20 @@ pre,
   font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif);
   line-height: 1.7;
 }
+.navbar-custom .navbar-header {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+
 .navbar-custom .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
   font-weight: 800;
   color: white;
-  height: 56px;
-  line-height: 25px;
+  line-height: 1;
 }
 .navbar-custom .navbar-brand:hover {
   color: rgba(255, 255, 255, 0.8);
@@ -465,9 +474,12 @@ pre,
     font-size: 20px;
   }
   .navbar-custom .navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 20px;
     color: white;
-    padding: 20px;
-    line-height: 20px;
+    line-height: 1;
   }
   .navbar-custom .navbar-brand:hover,
   .navbar-custom .navbar-brand:focus {
