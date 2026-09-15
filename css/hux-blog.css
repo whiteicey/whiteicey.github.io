@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * BY Blog v1.7.0 (http://qiubaiying.github.io)
  * Copyright 2026 BY <qiubaiyingios@163.com>
  */
@@ -2746,3 +2746,190 @@ button:focus:not(:focus-visible) {
   margin-left: 0.5rem;
 }
 
+
+
+/* ============================================
+   Chinese Reading Typography: Noto Serif + LXGW WenKai
+   ============================================ */
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-reading, "LXGW WenKai Screen", "Noto Serif SC", serif);
+  font-size: 18px;
+  line-height: var(--leading-body, 1.8);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading, "Noto Serif SC", "Source Serif 4", serif);
+  line-height: var(--leading-heading, 1.35);
+  letter-spacing: 0;
+}
+
+.post-layout-row {
+  position: relative;
+  display: block;
+}
+
+.post-layout-row > .post-container {
+  float: none;
+  width: auto;
+  max-width: min(100%, 39em);
+  margin-inline: auto;
+}
+
+.post-layout-row > .sidebar-container {
+  flex: 1 0 100%;
+  margin-top: 3rem;
+}
+
+.post-layout-row > .catalog-container.sidebar-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 220px;
+  margin: 0;
+}
+
+.post-container p {
+  font-family: var(--font-reading, "LXGW WenKai Screen", "Noto Serif SC", serif);
+  font-size: 1em;
+  line-height: 2.05;
+  letter-spacing: 0.01em;
+  text-align: justify;
+  text-justify: inter-ideograph;
+  line-break: strict;
+  hanging-punctuation: first last;
+  font-feature-settings: "halt";
+  overflow-wrap: anywhere;
+}
+
+.post-container > p + p,
+.post-container > ul + p,
+.post-container > ol + p,
+.post-container > blockquote + p {
+  margin-block-start: 1.15em;
+}
+
+.post-container h2,
+.post-container h3,
+.post-container h4,
+.post-container h5,
+.post-container h6 {
+  font-family: var(--font-heading, "Noto Serif SC", "Source Serif 4", serif);
+  text-align: left;
+}
+
+.post-container h2 {
+  font-size: 1.75rem;
+  line-height: 1.45;
+  margin-top: 2.75rem;
+  margin-bottom: 1rem;
+}
+
+.post-container h3 {
+  font-size: 1.38rem;
+  line-height: 1.5;
+  color: var(--color-text-primary, #2d2d2d);
+  margin-top: 2.25rem;
+  margin-bottom: 0.85rem;
+}
+
+.post-container h4 {
+  font-size: 1.2rem;
+  line-height: 1.55;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.post-container h5,
+.post-container h6 {
+  font-size: 1.08rem;
+  line-height: 1.6;
+  margin-top: 1.85rem;
+  margin-bottom: 0.7rem;
+}
+
+.post-container ul,
+.post-container ol {
+  line-height: 2;
+  letter-spacing: 0.01em;
+}
+
+.post-container li {
+  margin-block: 0.35em;
+}
+
+.post-container blockquote {
+  font-family: var(--font-heading, "Noto Serif SC", "Source Serif 4", serif);
+  line-height: 1.95;
+}
+
+.post-container blockquote p {
+  font-family: inherit;
+  line-height: inherit;
+  text-align: left;
+}
+
+.post-container table {
+  font-family: var(--font-sans, "Inter", sans-serif);
+  font-size: 0.92rem;
+}
+
+.post-container pre,
+.post-container code,
+.post-container kbd,
+.post-container samp {
+  font-family: var(--font-mono, "JetBrains Mono", Consolas, monospace);
+}
+
+/* Article/card titles use the serif heading face. */
+.post-card__title,
+.one-tag-list .post-title,
+.post-preview .post-title,
+.about-log-title,
+.about-section-title {
+  font-family: var(--font-heading, "Noto Serif SC", "Source Serif 4", serif);
+}
+
+.post-card__subtitle,
+.one-tag-list .post-subtitle,
+.post-preview .post-subtitle {
+  font-family: var(--font-reading, "LXGW WenKai Screen", "Noto Serif SC", serif);
+}
+
+/* Keep interactive/UI components in the sans face. */
+.search-modal-container,
+.custom-audio-player,
+.callout,
+.mobile-toc-drawer {
+  font-family: var(--font-sans, "Inter", sans-serif);
+}
+
+/* WenKai is a single-weight face; avoid excessive synthetic bold in body prose. */
+.post-container p strong {
+  font-weight: 600;
+}
+
+@media (max-width: 767px) {
+  body {
+    font-size: 17px;
+  }
+
+  .post-container {
+    max-width: 100%;
+  }
+
+  .post-container p {
+    line-height: 2.05;
+    text-align: left;
+  }
+}
