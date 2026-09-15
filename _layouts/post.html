@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 ---
 
@@ -92,12 +92,19 @@ layout: default
 
                 <!-- Utterances start -->
                 {% if site.utterances.enable %}
-                <script src="https://utteranc.es/client.js"
-                        repo="{{ site.utterances.repo }}"
-                        issue-term="pathname"
-                        theme="github-light"
-                        crossorigin="anonymous"
-                        async>
+                <div id="utterances-container"></div>
+                <script>
+                    (function() {
+                        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                        var s = document.createElement('script');
+                        s.src = 'https://utteranc.es/client.js';
+                        s.setAttribute('repo', '{{ site.utterances.repo }}');
+                        s.setAttribute('issue-term', 'pathname');
+                        s.setAttribute('theme', isDark ? 'github-dark' : 'github-light');
+                        s.setAttribute('crossorigin', 'anonymous');
+                        s.async = true;
+                        document.getElementById('utterances-container').appendChild(s);
+                    })();
                 </script>
                 {% endif %}
                 <!-- Utterances end -->

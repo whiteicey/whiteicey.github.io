@@ -24,14 +24,33 @@
         var btn = document.getElementById('theme-toggle');
         var icon = btn ? btn.querySelector('.theme-icon') : null;
 
+        function syncUtterances(isDark) {
+            var iframe = document.querySelector('iframe.utterances-frame');
+            if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.postMessage({
+                    type: 'set-theme',
+                    theme: isDark ? 'github-dark' : 'github-light'
+                }, 'https://utteranc.es');
+            }
+        }
+
         function updateIcon() {
             var isDark = html.getAttribute('data-theme') === 'dark';
             if (icon) {
                 icon.textContent = isDark ? '☀️' : '🌙';
             }
+            syncUtterances(isDark);
         }
 
         updateIcon();
+
+        // Also attempt sync once Utterances iframe loads
+        window.addEventListener('message', function(e) {
+            if (e.origin === 'https://utteranc.es' && e.data && e.data.type === 'resize') {
+                var isDark = html.getAttribute('data-theme') === 'dark';
+                syncUtterances(isDark);
+            }
+        });
 
         if (btn) {
             btn.addEventListener('click', function(e) {
@@ -173,22 +192,24 @@
 
         // Search Input handling
         input.addEventListener('input', function() {
-            var query = input.value.trim().toLowerCase();
-            if (!query) {
-                renderResults([]);
+            var rawQuery = input.value.trim();
+            if (!rawQuery) {
+                renderResults([], '');
                 return;
             }
             if (!searchIndex) return;
 
+            var tokens = rawQuery.toLowerCase().split(/\s+/).filter(Boolean);
             var matches = searchIndex.filter(function(post) {
                 var title = (post.title || '').toLowerCase();
                 var subtitle = (post.subtitle || '').toLowerCase();
                 var tags = (post.tags || []).join(' ').toLowerCase();
                 var snippet = (post.snippet || '').toLowerCase();
-                return title.includes(query) || subtitle.includes(query) || tags.includes(query) || snippet.includes(query);
+                var full = title + ' ' + subtitle + ' ' + tags + ' ' + snippet;
+                return tokens.every(function(token) { return full.includes(token); });
             });
 
-            renderResults(matches.slice(0, 10), query);
+            renderResults(matches.slice(0, 10), rawQuery);
         });
 
         // Keyboard navigation in search
@@ -221,10 +242,42 @@
             });
         }
 
+        function escapeRegExp(str) {
+            return str.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+        }
+
         function highlightText(text, query) {
             if (!query || !text) return text || '';
-            var regex = new RegExp('(' + query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&') + ')', 'gi');
-            return text.replace(regex, '<mark style="background: rgba(212, 165, 116, 0.35); color: inherit; padding: 0 2px; border-radius: 2px;">$1</mark>');
+            var tokens = query.trim().split(/\s+/).filter(Boolean).map(escapeRegExp);
+            if (!tokens.length) return text;
+            var regex = new RegExp('(' + tokens.join('|') + ')', 'gi');
+            return text.replace(regex, '<mark class="search-highlight">$1</mark>');
+        }
+
+        function extractSmartSnippet(content, query, maxLen) {
+            if (!content) return '';
+            maxLen = maxLen || 130;
+            if (!query) return content.slice(0, maxLen) + (content.length > maxLen ? '...' : '');
+
+            var tokens = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            var lower = content.toLowerCase();
+            var firstIdx = -1;
+            for (var i = 0; i < tokens.length; i++) {
+                var idx = lower.indexOf(tokens[i]);
+                if (idx !== -1 && (firstIdx === -1 || idx < firstIdx)) {
+                    firstIdx = idx;
+                }
+            }
+
+            if (firstIdx === -1) {
+                return content.slice(0, maxLen) + (content.length > maxLen ? '...' : '');
+            }
+
+            var start = Math.max(0, firstIdx - 30);
+            var end = Math.min(content.length, start + maxLen);
+            var prefix = start > 0 ? '...' : '';
+            var suffix = end < content.length ? '...' : '';
+            return prefix + content.slice(start, end).trim() + suffix;
         }
 
         function renderResults(posts, query) {
@@ -241,7 +294,9 @@
             var html = '';
             posts.forEach(function(post) {
                 var title = highlightText(post.title, query);
-                var snippet = highlightText(post.snippet, query);
+                var rawSnippet = post.snippet || post.subtitle || '';
+                var smartSnippet = extractSmartSnippet(rawSnippet, query);
+                var snippet = highlightText(smartSnippet, query);
                 var tagsHtml = (post.tags || []).map(function(t) {
                     return '<span class="search-item-tag">' + t + '</span>';
                 }).join('');
@@ -636,7 +691,61 @@
         });
     }
 
-    // ── 10. Nav Scroll Enhancement ───────────────
+    // ── 10. GitHub-style Callouts / Alerts ──────
+    function initCallouts() {
+        var container = document.querySelector('.post-container');
+        if (!container) return;
+
+        var typeMap = {
+            'note': {
+                title: 'Note',
+                svg: '<svg class="callout-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>'
+            },
+            'tip': {
+                title: 'Tip',
+                svg: '<svg class="callout-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.91.316.551.459 1.137.459 1.916a.75.75 0 0 0 1.5 0c0-.62-.11-1.02-.323-1.391a4.25 4.25 0 0 0-.583-.787l-.234-.275C6.17 7.26 5.5 6.438 5.5 5.25c0-1.285 1.077-2.25 2.5-2.25s2.5.965 2.5 2.25c0 1.188-.67 2.01-1.19 2.572l-.233.275a4.25 4.25 0 0 0-.583.787c-.213.371-.323.77-.323 1.391a.75.75 0 0 0 1.5 0c0-.779.143-1.365.459-1.916.203-.354.45-.646.673-.91l.214-.253c.56-.679.984-1.32.984-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12.5a.75.75 0 0 0 0 1.5h4.5a.75.75 0 0 0 0-1.5h-4.5Zm1 2.5a.75.75 0 0 0 0 1.5h2.5a.75.75 0 0 0 0-1.5h-2.5Z"/></svg>'
+            },
+            'important': {
+                title: 'Important',
+                svg: '<svg class="callout-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H9.06l-2.573 2.573A1.458 1.458 0 0 1 4 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25v-9.5Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2.5a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25H1.75ZM8 3a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 3Zm0 6.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>'
+            },
+            'warning': {
+                title: 'Warning',
+                svg: '<svg class="callout-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>'
+            },
+            'caution': {
+                title: 'Caution',
+                svg: '<svg class="callout-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M4.47.047A.75.75 0 0 1 5 0h6a.75.75 0 0 1 .53.22l4.25 4.25c.141.14.22.331.22.53v6a.75.75 0 0 1-.22.53l-4.25 4.25A.75.75 0 0 1 11 16H5a.75.75 0 0 1-.53-.22L.22 11.53A.75.75 0 0 1 0 11V5a.75.75 0 0 1 .22-.53L4.47.047Zm.53 1.453L1.5 5.5v5l3.5 3.5h5l3.5-3.5v-5L10.5 1.5h-5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 6.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>'
+            }
+        };
+
+        var blockquotes = container.querySelectorAll('blockquote');
+        blockquotes.forEach(function(bq) {
+            var firstP = bq.querySelector('p');
+            if (!firstP) return;
+
+            var text = firstP.innerHTML;
+            var match = text.match(/^\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\](?:\s*<br\s*\/?>|\s*\n)?/i);
+            if (!match) return;
+
+            var rawType = match[1].toLowerCase();
+            var conf = typeMap[rawType] || typeMap['note'];
+
+            bq.classList.add('callout', 'callout-' + rawType);
+
+            firstP.innerHTML = text.replace(/^\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\](?:\s*<br\s*\/?>|\s*\n)?/i, '').trim();
+            if (!firstP.innerHTML) {
+                firstP.remove();
+            }
+
+            var titleDiv = document.createElement('div');
+            titleDiv.className = 'callout-title';
+            titleDiv.innerHTML = conf.svg + '<span>' + conf.title + '</span>';
+            bq.insertBefore(titleDiv, bq.firstChild);
+        });
+    }
+
+    // ── 11. Nav Scroll Enhancement ───────────────
     function initNavScroll() {
         var nav = document.querySelector('.navbar-custom');
         if (!nav) return;
@@ -645,7 +754,7 @@
         }, 50), { passive: true });
     }
 
-    // ── 11. Post Card Scroll Reveal ──────────────
+    // ── 12. Post Card Scroll Reveal ──────────────
     function initScrollReveal() {
         var cards = document.querySelectorAll('.post-card');
         if (!cards.length) return;
@@ -678,9 +787,12 @@
         initLightbox();
         initMobileTOC();
         initTagsFilter();
+        initCallouts();
         initNavScroll();
         initScrollReveal();
     }
+
+    window.initCallouts = initCallouts;
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initAll);

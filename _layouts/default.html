@@ -5,6 +5,7 @@
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="{% if page.paper_reading or site.paper_reading %}paper-reading{% endif %}">
+    {% include svg-icons.html %}
 
     <!-- Phase 2: Reading Progress Bar -->
     <div id="reading-progress"></div>

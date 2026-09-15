@@ -35,10 +35,7 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="{{ "/css/bootstrap.min.css" | prepend: site.baseurl }}">
-
-    <!-- Custom CSS -->
+    <!-- Custom CSS (includes modern Grid/Flexbox skeleton and SVG icon styling) -->
     <link rel="stylesheet" href="{{ "/css/hux-blog.css" | prepend: site.baseurl }}">
 
     <!-- Pygments Github CSS -->
@@ -53,9 +50,6 @@
     <link rel="stylesheet" href="{{ "/css/noto-serif-sc-400.css" | prepend: site.baseurl }}">
     <link rel="stylesheet" href="{{ "/css/noto-serif-sc-600.css" | prepend: site.baseurl }}">
     <link rel="stylesheet" href="{{ "/css/lxgw-wenkai-screen.css" | prepend: site.baseurl }}">
-
-    <!-- Font Awesome Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- Anti-FOUC: Dark Mode Early Initialization -->
     <script>

@@ -41,7 +41,8 @@ header-img: "img/optimized/hero/tag-bg.webp"
 			<div class="tag-posts-wrapper">
 				{% for tag in site.tags %}
 				<div class="one-tag-list" data-tag-section="{{ tag[0] }}">
-				  	<span class="fa fa-tag listing-seperator" id="{{ tag[0] }}">
+				  	<span class="listing-seperator" id="{{ tag[0] }}">
+                        <svg class="svg-icon tag-icon" aria-hidden="true"><use href="#icon-tag"></use></svg>
                         <span class="tag-text">{{ tag[0] }}</span>
                         <span class="tag-count">({{ tag[1].size }} 篇)</span>
                     </span>

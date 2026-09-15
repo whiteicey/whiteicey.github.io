@@ -4,6 +4,7 @@ layout: default
 
 <!-- Page Header -->
 <header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
+    <div class="header-mask"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
@@ -114,21 +115,15 @@ layout: default
                         <ul class="list-inline">
                             {% if site.github_username %}
                             <li>
-                                <a target="_blank" href="https://github.com/{{ site.github_username }}">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
+                                <a target="_blank" href="https://github.com/{{ site.github_username }}" class="sidebar-social-btn" aria-label="GitHub">
+                                    <svg class="svg-icon" aria-hidden="true"><use href="#icon-github"></use></svg>
                                 </a>
                             </li>
                             {% endif %}
                             {% if site.RSS %}
                             <li>
-                                <a href="{{ "/feed.xml" | prepend: site.baseurl }}">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-                                    </span>
+                                <a href="{{ "/feed.xml" | prepend: site.baseurl }}" class="sidebar-social-btn" aria-label="RSS Feed">
+                                    <svg class="svg-icon" aria-hidden="true"><use href="#icon-rss"></use></svg>
                                 </a>
                             </li>
                             {% endif %}

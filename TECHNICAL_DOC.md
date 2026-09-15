@@ -315,6 +315,37 @@ whiteicey.github.io/
 - 移除 `footer-grid`、`footer-section` 相关 CSS
 - 新增 `footer-content`（flex column 居中）、`footer-nav`（flex wrap 胶囊按钮）
 
+### Commit 9: `4f20f13` — 修复导航栏桌面端点击错位 30px 问题
+
+**问题**：移动端折叠菜单 JS 的全局 `document.click` 监听器无条件将 `.navbar-collapse` 高度置为 `0px`，导致桌面端点击页面任何地方时，导航栏右侧（Home/About/Tags/搜索/主题切换）瞬间被截断 30px 无法垂直居中。
+
+**修复**：
+- `_includes/nav.html`：`document.click` 添加 `.in` 类判断，只有移动端抽屉处于打开状态时才执行收起；高度重置前校验 `window.innerWidth < 768`；增加 `window.resize` 兜底还原。
+- `css/hux-blog.css`：在桌面端媒体查询（`min-width: 768px`）下增加 `#huxblog_navbar` 锁定 `display: block !important; height: 60px !important; opacity: 1 !important; transform: none !important;`，桌面端与移动端彻底解耦。
+
+### Commit 10: 视觉阅读体验增强与框架彻底瘦身
+
+**改动内容**：
+1. **评论区（Utterances）暗色模式动态联动**：
+   - `_layouts/post.html`：初始化根据 `data-theme` 动态载入 `github-dark` 或 `github-light`。
+   - `js/phase2.js`：主题切换与 iframe 载入时通过 `postMessage({type: 'set-theme', theme: ...})` 实时广播，无需刷新页面即时同步。
+2. **文章标题平滑滚动与导航栏遮挡抵消**：
+   - `css/hux-blog.css`：为文章各级标题及标签页锚点配置 `scroll-margin-top: 80px;` 与 `scroll-behavior: smooth`（附带 `prefers-reduced-motion` 降级支持），点击目录或标签锚点不再被 60px 导航栏遮挡。
+3. **Hero Header 全局对比度兜底遮罩**：
+   - `_layouts/page.html`：在 `.intro-header` 下植入 `.header-mask`。
+   - `css/hux-blog.css`：配置基于主题色的轻度线性渐变遮罩，即使博文使用亮白底或高对比度复杂头图，白色标题与副标题依然清晰可读。
+4. **GitHub 风格 Callout / Alert 提示块支持**：
+   - 支持 `> [!NOTE]`、`> [!TIP]`、`> [!IMPORTANT]`、`> [!WARNING]`、`> [!CAUTION]` 标准语法。
+   - `js/phase2.js` 自动解析渲染，提供对应配色卡片与内联 SVG 图标，暗色模式自动适配。
+5. **现代 CSS Grid & Flexbox 骨架替换 Bootstrap 3.3.2（瘦身 117KB）**：
+   - 移除 `css/bootstrap.min.css`（117KB）及 `_includes/head.html` 中的引用。
+   - 在 `css/hux-blog.css` 顶部原生实现轻量响应式容器与 Flexbox 网格骨架，零外部依赖且更符合现代标准。
+6. **Font Awesome 4 CDN 替换为原生内联 SVG 图标**：
+   - 移除 `cdnjs` 的 `font-awesome.min.css` CDN 外部网络请求。
+   - 新建 `_includes/svg-icons.html`，以 SVG `<symbol>` 定义 site 实际使用的 5 个核心图标（`search`、`github`、`rss`、`list`、`tag`），通过 `<use>` 零网络阻塞秒开。
+7. **全站搜索结果关键词智能高亮与上下文摘录**：
+   - `js/phase2.js` 支持多关键词分词检索，动态截取以匹配词为中心的最佳阅读上下文（而非生硬从头截断），并使用 `<mark class="search-highlight">` 高亮匹配关键词。
+
 ---
 
 ## 5. 已知问题与排查经验
