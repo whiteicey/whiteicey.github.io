@@ -10,6 +10,7 @@ tags:
     - iOS
     - RunLoop
     - Obj-C
+paper_reading: true
 ---
 
 # 深入理解RunLoop

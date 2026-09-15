@@ -2796,7 +2796,7 @@ h6 {
 .post-layout-row > .post-container {
   float: none;
   width: auto;
-  max-width: min(100%, 39em);
+  max-width: min(100%, 45.5em);
   margin-inline: auto;
 }
 
@@ -2809,7 +2809,7 @@ h6 {
   position: absolute;
   top: 0;
   right: 0;
-  width: 220px;
+  width: 170px;
   margin: 0;
 }
 
@@ -2817,7 +2817,7 @@ h6 {
   font-family: var(--font-reading, "LXGW WenKai Screen", "Noto Serif SC", serif);
   font-size: 1em;
   line-height: 2.05;
-  letter-spacing: 0.01em;
+  letter-spacing: 0;
   text-align: justify;
   text-justify: inter-ideograph;
   line-break: strict;
@@ -2946,4 +2946,77 @@ h6 {
     line-height: 2.05;
     text-align: left;
   }
+}
+
+/* ==========================================================================
+   Paper Reading Mode (replicated e-reader typography)
+   --------------------------------------------------------------------------
+   Sampled from reference screenshot:
+   - paper background  : #F3F4F6
+   - text color        : slate blue-gray #4E5964
+   - font              : Noto Serif SC, 16px, weight 400
+   - line-height       : 2.2 (measured ~35px pitch @ 16px)
+   - paragraph spacing : 1.9em margin instead of first-line indent
+   - measure           : 42em (~40 CJK chars per line)
+   Enable globally in _config.yml:  paper_reading: true
+   or per post in Front Matter:     paper_reading: true
+   ========================================================================== */
+body.paper-reading {
+  font-size: 16px;
+}
+
+/* Paper palette applies in light mode only; the dark theme keeps its own. */
+:root:not([data-theme="dark"]) body.paper-reading {
+  background: #F3F4F6;
+  color: #4E5964;
+}
+
+body.paper-reading .post-layout-row > .post-container {
+  /* theme sets padding-right:5% on >=768px; restore symmetric 15px gutters
+     so the text measure stays exactly 42em and the column stays centered */
+  max-width: min(100%, calc(42em + 30px));
+  padding-right: 15px;
+}
+
+body.paper-reading .post-container p,
+body.paper-reading .post-container li {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 2.2;
+  letter-spacing: 0.015em;
+}
+
+body.paper-reading .post-container p {
+  margin: 0 0 1.9em;
+}
+
+body.paper-reading .post-container > p:last-of-type {
+  margin-bottom: 0;
+}
+
+:root:not([data-theme="dark"]) body.paper-reading .post-container h1,
+:root:not([data-theme="dark"]) body.paper-reading .post-container h2,
+:root:not([data-theme="dark"]) body.paper-reading .post-container h3,
+:root:not([data-theme="dark"]) body.paper-reading .post-container h4,
+:root:not([data-theme="dark"]) body.paper-reading .post-container h5,
+:root:not([data-theme="dark"]) body.paper-reading .post-container h6 {
+  color: #414B55;
+}
+
+:root:not([data-theme="dark"]) body.paper-reading .post-container a {
+  color: #4E5964;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(78, 89, 100, 0.35);
+}
+
+:root:not([data-theme="dark"]) body.paper-reading blockquote {
+  background: transparent;
+  box-shadow: none;
+  border-left-color: #C9CDD3;
+  color: #6A7480;
+}
+
+body.paper-reading ::selection {
+  background: rgba(78, 89, 100, 0.18);
 }

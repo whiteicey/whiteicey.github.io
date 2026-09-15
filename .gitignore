@@ -42,3 +42,5 @@ tools/_*
 tools/image_refs.json
 tools/visual-check/
 tools/__pycache__/
+
+.playwright-mcp/

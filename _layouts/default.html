@@ -4,7 +4,7 @@
 {% include head.html %}
 
 <!-- hack iOS CSS :active style -->
-<body ontouchstart="">
+<body ontouchstart="" class="{% if page.paper_reading or site.paper_reading %}paper-reading{% endif %}">
 
     <!-- Phase 2: Reading Progress Bar -->
     <div id="reading-progress"></div>

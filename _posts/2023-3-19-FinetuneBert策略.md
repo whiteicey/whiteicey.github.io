@@ -11,6 +11,7 @@ tags:
     - Bert
     - Translate Paper
     - Finetune-Bert
+paper_reading: true
 ---
 # 前言
 
