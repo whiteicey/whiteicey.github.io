@@ -411,6 +411,18 @@ tags:
 
 **经验**：任何包含 Liquid 语法示例的 `.md` 文件必须加入 `exclude`，或用 `{% raw %}...{% endraw %}` 包裹代码块。
 
+### 问题 9：桌面端点击页面后顶部导航栏项上移错位
+
+**症状**：页面刚刷新时导航栏左右对齐正常，但在页面任意位置点击后，右侧菜单（Home/About/Tags/搜索/主题切换）整体向上漂移 30px 并被顶部截断，刷新后又短暂恢复。
+
+**原因**：
+1. `_includes/nav.html` 中的全局 `click` 监听器无条件触发移动端 `__HuxNav__.close()`，400ms 定时器对 `.navbar-collapse` 施加了内联样式 `style="height: 0px;"`。
+2. 桌面端 `.navbar-collapse` 采用 `display: flex; align-items: center;`，容器高度变为 0px 后，高度 60px 的子元素 `.navbar-nav` 以 y=0 为中心居中对齐，导致上半部分（30px）移出可视区。
+
+**解决**：
+1. `_includes/nav.html`：仅当移动端菜单实际处于展开状态（`in` 类存在）时才响应外部点击关闭，且仅在移动端视口（`< 768px`）下设置 `height: 0px`；增加 `resize` 监听在窗口缩放至桌面端时重置内联高度。
+2. `css/hux-blog.css`：在 `@media (min-width: 768px)` 中为 `#huxblog_navbar` 设置 `height: 60px !important;`，为 `.navbar-collapse` 设置 `height: 100% !important;`，从样式层级彻底避免被任何内联高度破坏。
+
 ---
 
 ## 6. 维护指南

@@ -2089,10 +2089,18 @@ button:focus:not(:focus-visible) {
 
 /* --- Navbar Search & Theme Toggle Buttons & Alignment --- */
 @media only screen and (min-width: 768px) {
+  #huxblog_navbar {
+    display: block !important;
+    height: 60px !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
   .navbar-custom .navbar-collapse {
     display: flex !important;
     justify-content: flex-end !important;
     align-items: center !important;
+    height: 100% !important;
+    padding: 0 !important;
   }
   .navbar-custom .navbar-nav {
     display: flex !important;
