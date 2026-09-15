@@ -2689,25 +2689,27 @@ button:focus:not(:focus-visible) {
 .tags-list {
   display: flex !important;
   flex-wrap: wrap !important;
-  gap: 0.85rem !important;
-  margin: 1.5rem 0 3rem !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  margin: 1.25rem 0 2.25rem !important;
 }
 
 .tag-pill {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 0.5rem !important;
-  padding: 0.55rem 1.25rem !important;
-  border-radius: 2rem !important;
+  gap: 0.35rem !important;
+  min-height: 32px;
+  padding: 0.38rem 0.82rem !important;
+  border-radius: 999px !important;
   border: 1px solid var(--color-border, #e5e7eb) !important;
   background: var(--color-bg-card, #ffffff) !important;
   color: var(--color-text-primary, #2d2d2d) !important;
-  font-size: 1.05rem !important;
+  font-size: 0.82rem !important;
   font-weight: 500 !important;
   text-decoration: none !important;
   transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
   cursor: pointer !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03) !important;
 }
 
 .tag-pill:hover {
@@ -2725,12 +2727,12 @@ button:focus:not(:focus-visible) {
 }
 
 .tag-pill__count {
-  font-size: 0.85rem !important;
+  font-size: 0.7rem !important;
   font-weight: 600 !important;
   opacity: 0.8 !important;
   background: rgba(0, 0, 0, 0.08) !important;
   border-radius: 1rem !important;
-  padding: 0.15rem 0.6rem !important;
+  padding: 0.06rem 0.45rem !important;
   line-height: 1.2 !important;
 }
 
