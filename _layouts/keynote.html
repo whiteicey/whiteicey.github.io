@@ -69,24 +69,26 @@ layout: default
                 <hr style="visibility: hidden;">
 
 
-                <ul class="pager">
+                <nav class="post-nav" aria-label="文章上下篇导航">
                     {% if page.previous.url %}
-                    <li class="previous">
-                        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">
-                        Previous<br>
-                        <span>{{page.previous.title}}</span>
-                        </a>
-                    </li>
+                    <a class="post-nav-card post-nav-card--prev" href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" rel="prev">
+                        <span class="post-nav-label">
+                            <svg class="post-nav-arrow" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>
+                            PREVIOUS POST
+                        </span>
+                        <span class="post-nav-title">{{ page.previous.title }}</span>
+                    </a>
                     {% endif %}
                     {% if page.next.url %}
-                    <li class="next">
-                        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">
-                        Next<br>
-                        <span>{{page.next.title}}</span>
-                        </a>
-                    </li>
+                    <a class="post-nav-card post-nav-card--next" href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" rel="next">
+                        <span class="post-nav-label">
+                            NEXT POST
+                            <svg class="post-nav-arrow" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+                        </span>
+                        <span class="post-nav-title">{{ page.next.title }}</span>
+                    </a>
                     {% endif %}
-                </ul>
+                </nav>
 
                 <!-- Utterances start -->
                 {% if site.utterances.enable %}
